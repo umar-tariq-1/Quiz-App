@@ -119,16 +119,18 @@ class MyAppState extends State<MyApp> {
                         Button(
                           "Restart Quiz",
                           reset,
-                          fontSize: 21.6,
-                          height: 2.5,
+                          fontSize: 21,
+                          height: 2.4,
+                          width: 240,
                         )
                       ]
                     : [
                         Button(
                           "Start Quiz",
                           reset,
-                          fontSize: 21.6,
-                          height: 2.5,
+                          fontSize: 21,
+                          height: 2.4,
+                          width: 240,
                         )
                       ],
           ))),

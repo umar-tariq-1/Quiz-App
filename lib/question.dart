@@ -12,7 +12,7 @@ class Question extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.only(/* top: 50, */ bottom: 22),
         child: Text(
-          '${(questionNumber == 0) ? '' : '$questionNumber. '} $questionText',
+          '${(questionNumber == 0) ? '' : '$questionNumber. '}$questionText',
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Color.fromARGB(255, 0, 0, 0),
