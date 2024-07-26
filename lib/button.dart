@@ -5,25 +5,35 @@ class Button extends StatelessWidget {
   final double fontSize;
   final double height;
   final double width;
+  bool disabled;
+  bool active;
   final void Function(String) onClick;
 
-  const Button(this.buttonText, this.onClick,
-      {super.key, this.fontSize = 19, this.height = 2.3, this.width = 260});
+  Button(this.buttonText, this.onClick,
+      {super.key,
+      this.fontSize = 18.6,
+      this.height = 2.2,
+      this.width = 260,
+      this.active = false,
+      this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(9999),
+          border: Border.all(
+              color: active
+                  ? const Color.fromARGB(255, 10, 10, 10)
+                  : const Color.fromARGB(0, 10, 10, 10),
+              width: 2)),
       width: width,
-      padding: const EdgeInsets.only(top: 3, bottom: 6),
+      padding: const EdgeInsets.all(1.5),
       child: ElevatedButton(
         style: TextButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-            side: const BorderSide(
-              color: Color.fromARGB(255, 150, 150, 150),
-              width: 2,
-            ),
             padding: const EdgeInsets.all(3)),
-        onPressed: () => onClick(buttonText),
+        onPressed: disabled ? null : () => onClick(buttonText),
         child: Text(
           buttonText,
           textAlign: TextAlign.center,

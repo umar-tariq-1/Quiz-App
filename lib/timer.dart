@@ -44,7 +44,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Time remaining: $_secondsRemaining seconds',
+      'Time left: $_secondsRemaining seconds',
       style: TextStyle(
         fontSize: 18,
       ),
