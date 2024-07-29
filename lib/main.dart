@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/nextBtn.dart';
 import 'dart:math';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import './question.dart';
 import './button.dart';
 import './Timer.dart';
@@ -19,24 +22,32 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   var currentQuestionIndex = 0;
-  var currentWidgets = "Start Quiz";
+  var currentWidgets = "Main Page";
   var activeButton = -1;
   List questionIndexes = [];
   List optionIndexes = getRandomNumbers(0, 3);
-  var questions = {
-    "What is your name?": ["Umar", "Bilal", "Usman", "Abubakar"],
-    "What is your age?": ["21", "20", "19", "22"],
-    "What are you studying?": [
-      "Computer Science",
-      "Electrical Engineering",
-      "Data Science",
-      "Mechanical Engineering"
-    ]
+  Map<String, List<dynamic>> questions = {
+    // "What is your name?": ["Umar", "Bilal", "Usman", "Abubakar"],
+    // "What is your age?": ["21", "20", "19", "22"],
+    // "What are you studying?": [
+    //   "Computer Science",
+    //   "Electrical Engineering",
+    //   "Data Science",
+    //   "Mechanical Engineering"
+    // ]
   };
   var score = 0;
+  bool isLoading = false;
 
-  MyAppState() {
-    questionIndexes = getRandomNumbers(0, questions.length - 1);
+  Future<Map> httpGet(url) async {
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load questions');
+    }
   }
 
   void optionSelected(String selectedOption) {
@@ -69,11 +80,45 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  void reset(String reset) {
-    score = 0;
+  void reset(String reset) async {
     setState(() {
+      isLoading = true;
+    });
+    var data = await httpGet(
+        'https://opentdb.com/api.php?amount=3&category=21&difficulty=easy&type=multiple');
+    questions = {};
+    for (var i = 0; i < data['results'].length; i++) {
+      String question = data['results'][i]['question'];
+      question = question.replaceAll('&#039;', "'");
+      question = question.replaceAll('&amp;', "&");
+      question = question.replaceAll('&quot;', '"');
+      List<dynamic> options = data['results'][i]['incorrect_answers'];
+      options.insert(0, data['results'][i]['correct_answer']);
+      for (var i = 0; i < 4; i++) {
+        options[i] = options[i].toString().replaceAll('&#039;', "'");
+        options[i] = options[i].toString().replaceAll('&amp;', "&");
+        options[i] = options[i].toString().replaceAll('&quot;', '"');
+      }
+      questions[question] = options;
+    }
+    setState(() {
+      isLoading = false;
       currentQuestionIndex = 0;
       currentWidgets = "Show Questions";
+      questionIndexes = getRandomNumbers(0, questions.length - 1);
+      score = 0;
+    });
+  }
+
+  void addQuestions(String question) {
+    setState(() {
+      currentWidgets = "Add Questions";
+    });
+  }
+
+  void mainPage(String mainPage) {
+    setState(() {
+      currentWidgets = "Main Page";
     });
   }
 
@@ -94,56 +139,105 @@ class MyAppState extends State<MyApp> {
             foregroundColor: const Color.fromARGB(255, 239, 239, 239),
           ),
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          body: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: (currentWidgets == "Show Questions")
-                ? [
-                    Question(
-                        currentQuestionIndex + 1,
-                        questions.keys
-                            .toList()[questionIndexes[currentQuestionIndex]]),
-                    ...optionIndexes.map((index) {
-                      return Button(
-                        questions.values
-                                .toList()[questionIndexes[currentQuestionIndex]]
-                            [index],
-                        optionSelected,
-                        active: index == activeButton,
-                      );
-                    }),
-                    Nextbtn(nextQuestion, disabled: activeButton == -1),
-                    Container(
-                      margin: const EdgeInsets.only(top: 0),
-                      child: TimerWidget(
-                        durationInSeconds: 1000,
-                        onTimerComplete: () => timeUp(),
-                      ),
-                    )
-                  ]
-                : (currentWidgets == "Show Score")
+          body: Stack(
+            children: [
+              Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: (currentWidgets == "Show Questions")
                     ? [
-                        Question(0, "You scored $score/${questions.length}"),
-                        Button(
-                          "Restart Quiz",
-                          reset,
-                          fontSize: 20.5,
-                          height: 2.3,
-                          width: 240,
-                          active: true,
+                        Question(
+                            currentQuestionIndex + 1,
+                            questions.keys.toList()[
+                                questionIndexes[currentQuestionIndex]]),
+                        ...optionIndexes.map((index) {
+                          return Button(
+                            questions.values.toList()[
+                                questionIndexes[currentQuestionIndex]][index],
+                            optionSelected,
+                            active: index == activeButton,
+                          );
+                        }),
+                        Nextbtn(nextQuestion, disabled: activeButton == -1),
+                        Container(
+                          margin: const EdgeInsets.only(top: 0),
+                          child: TimerWidget(
+                            durationInSeconds: 1000,
+                            onTimerComplete: () => timeUp(),
+                          ),
                         )
                       ]
-                    : [
-                        Button(
-                          "Start Quiz",
-                          reset,
-                          fontSize: 20.5,
-                          height: 2.3,
-                          width: 240,
-                          active: true,
-                        )
-                      ],
-          ))),
+                    : (currentWidgets == "Show Score")
+                        ? [
+                            Question(
+                                0, "You scored $score/${questions.length}"),
+                            Button(
+                              "Retake Quiz",
+                              reset,
+                              fontSize: 20,
+                              height: 2.3,
+                              width: 240,
+                              active: true,
+                            ),
+                            Button(
+                              "Main Page",
+                              mainPage,
+                              fontSize: 20,
+                              height: 2.3,
+                              width: 235,
+                              active: true,
+                            ),
+                          ]
+                        : (currentWidgets == "Main Page")
+                            ? [
+                                Button(
+                                  "Attempt Quiz",
+                                  reset,
+                                  fontSize: 20,
+                                  height: 2.3,
+                                  width: 235,
+                                  active: true,
+                                ),
+                                Button(
+                                  "Add Questions",
+                                  addQuestions,
+                                  fontSize: 20,
+                                  height: 2.3,
+                                  width: 235,
+                                  active: true,
+                                ),
+                              ]
+                            : (currentWidgets == "Main Page")
+                                ? []
+                                : [],
+              )),
+              if (isLoading)
+                const Opacity(
+                  opacity: 0.9,
+                  child: ModalBarrier(
+                      dismissible: false,
+                      color: Color.fromARGB(255, 239, 239, 239)),
+                ),
+              if (isLoading)
+                Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LoadingAnimationWidget.threeArchedCircle(
+                      color: const Color.fromARGB(255, 10, 10, 10),
+                      size: 58,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(left: 4),
+                      child: const Text("Loading...",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500)),
+                    ),
+                  ],
+                )),
+            ],
+          )),
     );
   }
 }
