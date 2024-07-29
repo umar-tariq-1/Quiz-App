@@ -32,7 +32,8 @@ class Button extends StatelessWidget {
       child: ElevatedButton(
         style: TextButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-            padding: const EdgeInsets.all(3)),
+            padding:
+                const EdgeInsets.only(top: 3, bottom: 3, left: 15, right: 15)),
         onPressed: disabled ? null : () => onClick(buttonText),
         child: Text(
           buttonText,
