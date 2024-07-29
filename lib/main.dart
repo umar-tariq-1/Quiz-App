@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/nextBtn.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import './textfield.dart';
 import './question.dart';
 import './button.dart';
-import './Timer.dart';
+import './timer.dart';
+import './nextBtn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -207,8 +208,8 @@ class MyAppState extends State<MyApp> {
                                   active: true,
                                 ),
                               ]
-                            : (currentWidgets == "Main Page")
-                                ? []
+                            : (currentWidgets == "Add Questions")
+                                ? [CustomTextField()]
                                 : [],
               )),
               if (isLoading)
