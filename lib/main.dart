@@ -130,6 +130,10 @@ class MyAppState extends State<MyApp> {
     });
   }
 
+  void questionSubmitted(questionData) {
+    print(questionData);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -210,7 +214,7 @@ class MyAppState extends State<MyApp> {
                               ]
                             : (currentWidgets == "Add Questions")
                                 ? [
-                                    AddQuestionForm(),
+                                    AddQuestionForm(questionSubmitted),
                                     Button(
                                       "Main Page",
                                       mainPage,

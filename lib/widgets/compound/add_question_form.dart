@@ -12,7 +12,7 @@ class AddQuestionForm extends StatelessWidget {
     "option2": TextEditingController(),
     "option3": TextEditingController()
   };
-  Map questionData = {};
+  final void Function(dynamic) onSubmit;
 
   void clearControllers(List<String> namesList) {
     for (var name in namesList) {
@@ -22,7 +22,7 @@ class AddQuestionForm extends StatelessWidget {
     }
   }
 
-  AddQuestionForm({super.key});
+  AddQuestionForm(this.onSubmit, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +51,13 @@ class AddQuestionForm extends StatelessWidget {
       Button(
         "Submit",
         (_) {
+          onSubmit({
+            'question': controllers['question']!.text,
+            'answer': controllers['answer']!.text,
+            'option1': controllers['option1']!.text,
+            'option2': controllers['option2']!.text,
+            'option3': controllers['option3']!.text
+          });
           clearControllers([
             'question',
             'answer',
