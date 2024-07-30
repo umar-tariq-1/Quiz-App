@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import './textfield.dart';
+import 'input_field.dart';
 import './question.dart';
 import './button.dart';
 import './timer.dart';
-import './nextBtn.dart';
+import 'next_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +39,13 @@ class MyAppState extends State<MyApp> {
   };
   var score = 0;
   bool isLoading = false;
+  final Map<String, TextEditingController> controllers = {
+    "question": TextEditingController(),
+    "answer": TextEditingController(),
+    "option1": TextEditingController(),
+    "option2": TextEditingController(),
+    "option3": TextEditingController()
+  };
 
   Future<Map> httpGet(url) async {
     final response = await http.get(Uri.parse(url));
@@ -48,6 +55,14 @@ class MyAppState extends State<MyApp> {
       return data;
     } else {
       throw Exception('Failed to load questions');
+    }
+  }
+
+  void clearControllers(List<String> namesList) {
+    for (var name in namesList) {
+      if (controllers.containsKey(name)) {
+        controllers[name]!.clear();
+      }
     }
   }
 
@@ -130,6 +145,16 @@ class MyAppState extends State<MyApp> {
     });
   }
 
+  void submitQuestion(data) {
+    clearControllers([
+      'question',
+      'answer',
+      'option1',
+      'option2',
+      'option3',
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -209,7 +234,45 @@ class MyAppState extends State<MyApp> {
                                 ),
                               ]
                             : (currentWidgets == "Add Questions")
-                                ? [CustomTextField()]
+                                ? [
+                                    CustomInputField(
+                                      controller: controllers['question']!,
+                                      label: 'Question',
+                                    ),
+                                    CustomInputField(
+                                      controller: controllers['answer']!,
+                                      label: 'Answer',
+                                      color: Colors.green.shade800,
+                                    ),
+                                    CustomInputField(
+                                        controller: controllers['option1']!,
+                                        label: 'Option 1',
+                                        color: Colors.red.shade800),
+                                    CustomInputField(
+                                        controller: controllers['option2']!,
+                                        label: 'Option 2',
+                                        color: Colors.red.shade800),
+                                    CustomInputField(
+                                        controller: controllers['option3']!,
+                                        label: 'Option 3',
+                                        color: Colors.red.shade800),
+                                    Button(
+                                      "Submit",
+                                      submitQuestion,
+                                      fontSize: 20,
+                                      height: 2.3,
+                                      width: 235,
+                                      active: true,
+                                    ),
+                                    Button(
+                                      "Main Page",
+                                      mainPage,
+                                      fontSize: 20,
+                                      height: 2.3,
+                                      width: 235,
+                                      active: true,
+                                    ),
+                                  ]
                                 : [],
               )),
               if (isLoading)
