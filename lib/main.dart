@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
-import 'package:quiz_app/add_question_form.dart';
+import 'package:quiz_app/widgets/compound/add_question_form.dart';
 import 'dart:convert';
-import 'package:quiz_app/loader.dart';
-import './question.dart';
-import './button.dart';
-import './timer.dart';
-import 'next_button.dart';
+import 'package:quiz_app/widgets/base/loader.dart';
+import 'widgets/base/question.dart';
+import 'widgets/base/button.dart';
+import 'widgets/base/timer.dart';
+import 'widgets/base/next_button.dart';
 
 void main() {
   runApp(const MyApp());

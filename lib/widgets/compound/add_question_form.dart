@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'input_field.dart';
-import './button.dart';
+import '../base/input_field.dart';
+import '../base/button.dart';
 
 class AddQuestionForm extends StatelessWidget {
   final Map<String, TextEditingController> controllers = {
