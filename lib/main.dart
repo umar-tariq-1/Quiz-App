@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:quiz_app/add_question_form.dart';
 import 'dart:convert';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'input_field.dart';
+import 'package:quiz_app/loader.dart';
 import './question.dart';
 import './button.dart';
 import './timer.dart';
@@ -39,16 +39,9 @@ class MyAppState extends State<MyApp> {
   };
   var score = 0;
   bool isLoading = false;
-  final Map<String, TextEditingController> controllers = {
-    "question": TextEditingController(),
-    "answer": TextEditingController(),
-    "option1": TextEditingController(),
-    "option2": TextEditingController(),
-    "option3": TextEditingController()
-  };
 
   Future<Map> httpGet(url) async {
-    final response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -58,15 +51,7 @@ class MyAppState extends State<MyApp> {
     }
   }
 
-  void clearControllers(List<String> namesList) {
-    for (var name in namesList) {
-      if (controllers.containsKey(name)) {
-        controllers[name]!.clear();
-      }
-    }
-  }
-
-  void optionSelected(String selectedOption) {
+  void optionSelected(selectedOption) {
     setState(() {
       activeButton = questions.values
           .toList()[questionIndexes[currentQuestionIndex]]
@@ -96,7 +81,7 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  void reset(String reset) async {
+  void reset(reset) async {
     setState(() {
       isLoading = true;
     });
@@ -126,13 +111,13 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  void addQuestions(String question) {
+  void addQuestions(question) {
     setState(() {
       currentWidgets = "Add Questions";
     });
   }
 
-  void mainPage(String mainPage) {
+  void mainPage(mainPage) {
     setState(() {
       currentWidgets = "Main Page";
     });
@@ -143,16 +128,6 @@ class MyAppState extends State<MyApp> {
       currentQuestionIndex = 0;
       currentWidgets = "Show Score";
     });
-  }
-
-  void submitQuestion(data) {
-    clearControllers([
-      'question',
-      'answer',
-      'option1',
-      'option2',
-      'option3',
-    ]);
   }
 
   @override
@@ -235,35 +210,7 @@ class MyAppState extends State<MyApp> {
                               ]
                             : (currentWidgets == "Add Questions")
                                 ? [
-                                    CustomInputField(
-                                      controller: controllers['question']!,
-                                      label: 'Question',
-                                    ),
-                                    CustomInputField(
-                                      controller: controllers['answer']!,
-                                      label: 'Answer',
-                                      color: Colors.green.shade800,
-                                    ),
-                                    CustomInputField(
-                                        controller: controllers['option1']!,
-                                        label: 'Option 1',
-                                        color: Colors.red.shade800),
-                                    CustomInputField(
-                                        controller: controllers['option2']!,
-                                        label: 'Option 2',
-                                        color: Colors.red.shade800),
-                                    CustomInputField(
-                                        controller: controllers['option3']!,
-                                        label: 'Option 3',
-                                        color: Colors.red.shade800),
-                                    Button(
-                                      "Submit",
-                                      submitQuestion,
-                                      fontSize: 20,
-                                      height: 2.3,
-                                      width: 235,
-                                      active: true,
-                                    ),
+                                    AddQuestionForm(),
                                     Button(
                                       "Main Page",
                                       mainPage,
@@ -275,31 +222,7 @@ class MyAppState extends State<MyApp> {
                                   ]
                                 : [],
               )),
-              if (isLoading)
-                const Opacity(
-                  opacity: 0.9,
-                  child: ModalBarrier(
-                      dismissible: false,
-                      color: Color.fromARGB(255, 239, 239, 239)),
-                ),
-              if (isLoading)
-                Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LoadingAnimationWidget.threeArchedCircle(
-                      color: const Color.fromARGB(255, 10, 10, 10),
-                      size: 58,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 15),
-                      padding: const EdgeInsets.only(left: 4),
-                      child: const Text("Loading...",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w500)),
-                    ),
-                  ],
-                )),
+              Loader(isLoading: isLoading),
             ],
           )),
     );

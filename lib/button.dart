@@ -1,6 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class Button extends StatelessWidget {
   final String buttonText;
   final double fontSize;
@@ -8,15 +9,18 @@ class Button extends StatelessWidget {
   final double width;
   bool disabled;
   bool active;
-  final void Function(String) onClick;
+  final void Function(dynamic) onClick;
 
-  Button(this.buttonText, this.onClick,
-      {super.key,
-      this.fontSize = 18.5,
-      this.height = 2.2,
-      this.width = 260,
-      this.active = false,
-      this.disabled = false});
+  Button(
+    this.buttonText,
+    this.onClick, {
+    super.key,
+    this.fontSize = 18.5,
+    this.height = 2.2,
+    this.width = 260,
+    this.active = false,
+    this.disabled = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,11 @@ class Button extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 10, 10, 10),
             padding:
                 const EdgeInsets.only(top: 3, bottom: 3, left: 15, right: 15)),
-        onPressed: disabled ? null : () => onClick(buttonText),
+        onPressed: disabled
+            ? null
+            : () {
+                onClick(buttonText);
+              },
         child: Text(
           buttonText,
           textAlign: TextAlign.center,
