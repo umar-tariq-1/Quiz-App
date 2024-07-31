@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:quiz_app/widgets/compound/add_question_form.dart';
 import 'dart:convert';
+import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:quiz_app/widgets/base/loader.dart';
 import 'widgets/base/question.dart';
 import 'widgets/base/button.dart';
@@ -27,16 +28,7 @@ class MyAppState extends State<MyApp> {
   var activeButton = -1;
   List questionIndexes = [];
   List optionIndexes = getRandomNumbers(0, 3);
-  Map<String, List<dynamic>> questions = {
-    // "What is your name?": ["Umar", "Bilal", "Usman", "Abubakar"],
-    // "What is your age?": ["21", "20", "19", "22"],
-    // "What are you studying?": [
-    //   "Computer Science",
-    //   "Electrical Engineering",
-    //   "Data Science",
-    //   "Mechanical Engineering"
-    // ]
-  };
+  Map<String, List<dynamic>> questions = {};
   var score = 0;
   bool isLoading = false;
 
@@ -48,6 +40,12 @@ class MyAppState extends State<MyApp> {
       return data;
     } else {
       throw Exception('Failed to load questions');
+    }
+  }
+
+  void windowOutOfFocus(FGBGType state) {
+    if (state == FGBGType.background) {
+      print('cheating');
     }
   }
 
@@ -136,100 +134,109 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Center(child: Text("Quiz App")),
-            backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-            foregroundColor: const Color.fromARGB(255, 239, 239, 239),
+    return FGBGNotifier(
+        onEvent: windowOutOfFocus,
+        child: MaterialApp(
+          theme: ThemeData(
+            primaryColor: const Color.fromARGB(255, 10, 10, 10),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: const Color.fromARGB(255, 239, 239, 239),
+            ),
           ),
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          body: Stack(
-            children: [
-              Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: (currentWidgets == "Show Questions")
-                    ? [
-                        Question(
-                            currentQuestionIndex + 1,
-                            questions.keys.toList()[
-                                questionIndexes[currentQuestionIndex]]),
-                        ...optionIndexes.map((index) {
-                          return Button(
-                            questions.values.toList()[
-                                questionIndexes[currentQuestionIndex]][index],
-                            optionSelected,
-                            active: index == activeButton,
-                          );
-                        }),
-                        Nextbtn(nextQuestion, disabled: activeButton == -1),
-                        Container(
-                          margin: const EdgeInsets.only(top: 0),
-                          child: TimerWidget(
-                            durationInSeconds: 1000,
-                            onTimerComplete: () => timeUp(),
-                          ),
-                        )
-                      ]
-                    : (currentWidgets == "Show Score")
+          home: Scaffold(
+              appBar: AppBar(
+                title: const Center(child: Text("Quiz App")),
+                backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+                foregroundColor: const Color.fromARGB(255, 239, 239, 239),
+              ),
+              backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+              body: Stack(
+                children: [
+                  Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: (currentWidgets == "Show Questions")
                         ? [
                             Question(
-                                0, "You scored $score/${questions.length}"),
-                            Button(
-                              "Retake Quiz",
-                              reset,
-                              fontSize: 20,
-                              height: 2.3,
-                              width: 240,
-                              active: true,
-                            ),
-                            Button(
-                              "Main Page",
-                              mainPage,
-                              fontSize: 20,
-                              height: 2.3,
-                              width: 235,
-                              active: true,
-                            ),
+                                currentQuestionIndex + 1,
+                                questions.keys.toList()[
+                                    questionIndexes[currentQuestionIndex]]),
+                            ...optionIndexes.map((index) {
+                              return Button(
+                                questions.values.toList()[
+                                        questionIndexes[currentQuestionIndex]]
+                                    [index],
+                                optionSelected,
+                                active: index == activeButton,
+                              );
+                            }),
+                            Nextbtn(nextQuestion, disabled: activeButton == -1),
+                            Container(
+                              margin: const EdgeInsets.only(top: 0),
+                              child: TimerWidget(
+                                durationInSeconds: 1000,
+                                onTimerComplete: () => timeUp(),
+                              ),
+                            )
                           ]
-                        : (currentWidgets == "Main Page")
+                        : (currentWidgets == "Show Score")
                             ? [
+                                Question(
+                                    0, "You scored $score/${questions.length}"),
                                 Button(
-                                  "Attempt Quiz",
+                                  "Retake Quiz",
                                   reset,
                                   fontSize: 20,
                                   height: 2.3,
-                                  width: 235,
+                                  width: 240,
                                   active: true,
                                 ),
                                 Button(
-                                  "Add Questions",
-                                  addQuestions,
+                                  "Main Page",
+                                  mainPage,
                                   fontSize: 20,
                                   height: 2.3,
                                   width: 235,
                                   active: true,
                                 ),
                               ]
-                            : (currentWidgets == "Add Questions")
+                            : (currentWidgets == "Main Page")
                                 ? [
-                                    AddQuestionForm(questionSubmitted),
                                     Button(
-                                      "Main Page",
-                                      mainPage,
+                                      "Attempt Quiz",
+                                      reset,
+                                      fontSize: 20,
+                                      height: 2.3,
+                                      width: 235,
+                                      active: true,
+                                    ),
+                                    Button(
+                                      "Add Questions",
+                                      addQuestions,
                                       fontSize: 20,
                                       height: 2.3,
                                       width: 235,
                                       active: true,
                                     ),
                                   ]
-                                : [],
+                                : (currentWidgets == "Add Questions")
+                                    ? [
+                                        AddQuestionForm(questionSubmitted),
+                                        Button(
+                                          "Main Page",
+                                          mainPage,
+                                          fontSize: 20,
+                                          height: 2.3,
+                                          width: 235,
+                                          active: true,
+                                        ),
+                                      ]
+                                    : [],
+                  )),
+                  Loader(isLoading: isLoading),
+                ],
               )),
-              Loader(isLoading: isLoading),
-            ],
-          )),
-    );
+        ));
   }
 }
 
