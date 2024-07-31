@@ -17,7 +17,7 @@ class Button extends StatelessWidget {
     super.key,
     this.fontSize = 18.5,
     this.height = 2.2,
-    this.width = 260,
+    this.width = 250,
     this.active = false,
     this.disabled = false,
   });
