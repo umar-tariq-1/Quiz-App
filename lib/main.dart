@@ -84,7 +84,7 @@ class MyAppState extends State<MyApp> {
       isLoading = true;
     });
     var data = await httpGet(
-        'https://opentdb.com/api.php?amount=3&category=21&difficulty=easy&type=multiple');
+        'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple');
     questions = {};
     for (var i = 0; i < data['results'].length; i++) {
       String question = data['results'][i]['question'];
@@ -145,7 +145,23 @@ class MyAppState extends State<MyApp> {
           ),
           home: Scaffold(
               appBar: AppBar(
-                title: const Center(child: Text("Quiz App")),
+                toolbarHeight: 68,
+                centerTitle: true,
+                leading: IconButton(
+                  icon: const Icon(Icons.menu),
+                  iconSize: 29,
+                  onPressed: () {
+                    // Scaffold.of(context).openDrawer();
+                  },
+                ),
+                title: const Text(
+                  "Quiz App",
+                  style: TextStyle(
+                      fontFamily: 'BeautifulPeople',
+                      fontSize: 25,
+                      letterSpacing: 0.6,
+                      wordSpacing: 0.6),
+                ),
                 backgroundColor: const Color.fromARGB(255, 10, 10, 10),
                 foregroundColor: const Color.fromARGB(255, 239, 239, 239),
               ),
@@ -186,17 +202,17 @@ class MyAppState extends State<MyApp> {
                                 Button(
                                   "Retake Quiz",
                                   reset,
-                                  fontSize: 20,
+                                  fontSize: 19,
                                   height: 2.3,
-                                  width: 240,
+                                  width: 230,
                                   active: true,
                                 ),
                                 Button(
                                   "Main Page",
                                   mainPage,
-                                  fontSize: 20,
+                                  fontSize: 19,
                                   height: 2.3,
-                                  width: 235,
+                                  width: 230,
                                   active: true,
                                 ),
                               ]
@@ -205,17 +221,17 @@ class MyAppState extends State<MyApp> {
                                     Button(
                                       "Attempt Quiz",
                                       reset,
-                                      fontSize: 20,
+                                      fontSize: 19,
                                       height: 2.3,
-                                      width: 235,
+                                      width: 230,
                                       active: true,
                                     ),
                                     Button(
                                       "Add Questions",
                                       addQuestions,
-                                      fontSize: 20,
+                                      fontSize: 19,
                                       height: 2.3,
-                                      width: 235,
+                                      width: 230,
                                       active: true,
                                     ),
                                   ]
@@ -225,9 +241,9 @@ class MyAppState extends State<MyApp> {
                                         Button(
                                           "Main Page",
                                           mainPage,
-                                          fontSize: 20,
+                                          fontSize: 19,
                                           height: 2.3,
-                                          width: 235,
+                                          width: 230,
                                           active: true,
                                         ),
                                       ]

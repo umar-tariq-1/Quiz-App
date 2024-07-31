@@ -33,12 +33,12 @@ class Button extends StatelessWidget {
                   : const Color.fromARGB(0, 10, 10, 10),
               width: 2)),
       width: width,
-      padding: const EdgeInsets.all(1.5),
+      padding: const EdgeInsets.all(1.75),
       child: ElevatedButton(
         style: TextButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 10, 10, 10),
             padding:
-                const EdgeInsets.only(top: 3, bottom: 3, left: 15, right: 15)),
+                const EdgeInsets.symmetric(horizontal: 15, vertical: 12.5)),
         onPressed: disabled
             ? null
             : () {
@@ -51,8 +51,6 @@ class Button extends StatelessWidget {
             color: const Color.fromARGB(255, 239, 239, 239),
             fontSize: fontSize,
             fontWeight: FontWeight.w400,
-            height: height,
-            letterSpacing: 0,
           ),
         ),
       ),
