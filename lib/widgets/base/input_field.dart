@@ -37,9 +37,9 @@ class CustomInputField extends StatelessWidget {
             cursorWidth: 1.3,
             controller: controller,
             textCapitalization: TextCapitalization.sentences,
-            style: TextStyle(
+            style: const TextStyle(
                 fontFamily: 'RalewayMedium',
-                color: color,
+                // color: color,
                 fontSize: 18,
                 letterSpacing: 0.1),
             decoration: InputDecoration(
