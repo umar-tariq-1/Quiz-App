@@ -137,7 +137,10 @@ class MyAppState extends State<MyApp> {
     return FGBGNotifier(
         onEvent: windowOutOfFocus,
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            fontFamily: 'Raleway',
+            focusColor: const Color.fromARGB(255, 239, 239, 239),
             primaryColor: const Color.fromARGB(255, 10, 10, 10),
             colorScheme: ColorScheme.fromSwatch().copyWith(
               secondary: const Color.fromARGB(255, 239, 239, 239),
@@ -202,17 +205,17 @@ class MyAppState extends State<MyApp> {
                                 Button(
                                   "Retake Quiz",
                                   reset,
-                                  fontSize: 19,
-                                  height: 2.3,
-                                  width: 230,
+                                  fontSize: 18.6,
+                                  height: 13,
+                                  width: 220,
                                   active: true,
                                 ),
                                 Button(
                                   "Main Page",
                                   mainPage,
-                                  fontSize: 19,
-                                  height: 2.3,
-                                  width: 230,
+                                  fontSize: 18.6,
+                                  height: 13,
+                                  width: 220,
                                   active: true,
                                 ),
                               ]
@@ -221,17 +224,17 @@ class MyAppState extends State<MyApp> {
                                     Button(
                                       "Attempt Quiz",
                                       reset,
-                                      fontSize: 19,
-                                      height: 2.3,
-                                      width: 230,
+                                      fontSize: 18.6,
+                                      height: 13,
+                                      width: 220,
                                       active: true,
                                     ),
                                     Button(
                                       "Add Questions",
                                       addQuestions,
-                                      fontSize: 19,
-                                      height: 2.3,
-                                      width: 230,
+                                      fontSize: 18.6,
+                                      height: 13,
+                                      width: 220,
                                       active: true,
                                     ),
                                   ]
@@ -241,9 +244,9 @@ class MyAppState extends State<MyApp> {
                                         Button(
                                           "Main Page",
                                           mainPage,
-                                          fontSize: 19,
-                                          height: 2.3,
-                                          width: 230,
+                                          fontSize: 18.6,
+                                          height: 13,
+                                          width: 220,
                                           active: true,
                                         ),
                                       ]

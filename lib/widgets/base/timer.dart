@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 
@@ -5,7 +7,10 @@ class TimerWidget extends StatefulWidget {
   final int durationInSeconds;
   final Function onTimerComplete;
 
-  TimerWidget({required this.durationInSeconds, required this.onTimerComplete});
+  const TimerWidget(
+      {super.key,
+      required this.durationInSeconds,
+      required this.onTimerComplete});
 
   @override
   _TimerWidgetState createState() => _TimerWidgetState();
@@ -45,7 +50,8 @@ class _TimerWidgetState extends State<TimerWidget> {
   Widget build(BuildContext context) {
     return Text(
       'Time left: $_secondsRemaining seconds',
-      style: TextStyle(
+      style: const TextStyle(
+        fontFamily: "RalewayMedium",
         fontSize: 18,
       ),
     );

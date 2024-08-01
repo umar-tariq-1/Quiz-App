@@ -15,9 +15,9 @@ class Button extends StatelessWidget {
     this.buttonText,
     this.onClick, {
     super.key,
-    this.fontSize = 18.5,
-    this.height = 2.2,
-    this.width = 250,
+    this.fontSize = 18.25,
+    this.height = 12.75,
+    this.width = 240,
     this.active = false,
     this.disabled = false,
   });
@@ -38,7 +38,7 @@ class Button extends StatelessWidget {
         style: TextButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 10, 10, 10),
             padding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 12.5)),
+                EdgeInsets.symmetric(horizontal: 18.885, vertical: height)),
         onPressed: disabled
             ? null
             : () {
@@ -48,10 +48,10 @@ class Button extends StatelessWidget {
           buttonText,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: const Color.fromARGB(255, 239, 239, 239),
-            fontSize: fontSize,
-            fontWeight: FontWeight.w400,
-          ),
+              color: const Color.fromARGB(255, 239, 239, 239),
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.1),
         ),
       ),
     );

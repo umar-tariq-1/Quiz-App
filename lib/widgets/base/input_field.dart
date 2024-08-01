@@ -30,18 +30,24 @@ class CustomInputField extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4.5, horizontal: 10),
         child: SizedBox(
           width: double.infinity,
+          height: 56.5,
           child: TextField(
             cursorColor: color,
             obscureText: password,
-            cursorWidth: 1.2,
+            cursorWidth: 1.3,
             controller: controller,
             textCapitalization: TextCapitalization.sentences,
+            style: TextStyle(
+                fontFamily: 'RalewayMedium',
+                color: color,
+                fontSize: 18,
+                letterSpacing: 0.1),
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: color),
+                borderSide: BorderSide(color: color, width: 1),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: color),
+                borderSide: BorderSide(color: color, width: 1.2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: color, width: 2),
@@ -49,9 +55,9 @@ class CustomInputField extends StatelessWidget {
               hintText: placeholder,
               labelText: label,
               labelStyle: TextStyle(
+                fontFamily: 'RalewayMedium',
                 color: color,
-                fontSize: 17,
-                fontWeight: FontWeight.w400,
+                fontSize: 16.75,
               ),
             ),
           ),

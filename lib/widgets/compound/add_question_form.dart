@@ -66,9 +66,9 @@ class AddQuestionForm extends StatelessWidget {
             'option3',
           ]);
         },
-        fontSize: 20,
-        height: 2.3,
-        width: 235,
+        fontSize: 18.6,
+        height: 13,
+        width: 220,
         active: true,
       ),
     ]);

@@ -35,11 +35,11 @@ class Loader extends StatelessWidget {
                 size: 58,
               ),
               Container(
-                margin: const EdgeInsets.only(top: 15),
+                margin: const EdgeInsets.only(top: 14.5),
                 padding: const EdgeInsets.only(left: 4),
                 child: const Text("Loading...",
                     style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                        TextStyle(fontSize: 15.5, fontWeight: FontWeight.bold)),
               ),
             ],
           )),
