@@ -38,8 +38,10 @@ class Loader extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 14.5),
                 padding: const EdgeInsets.only(left: 4),
                 child: const Text("Loading...",
-                    style:
-                        TextStyle(fontSize: 15.5, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.1)),
               ),
             ],
           )),
