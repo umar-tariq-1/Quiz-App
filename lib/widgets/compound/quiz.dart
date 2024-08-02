@@ -9,6 +9,7 @@ import 'package:quiz_app/widgets/base/question.dart';
 import 'package:quiz_app/widgets/base/next_button.dart';
 import 'package:quiz_app/widgets/base/timer.dart';
 import 'package:quiz_app/widgets/base/loader.dart';
+import 'package:flutter_fgbg/flutter_fgbg.dart';
 
 class Quiz extends StatefulWidget {
   final void Function(dynamic) mainPage;
@@ -115,75 +116,82 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void _handleAppLostFocus(FGBGType state) {
+    if (state == FGBGType.background) {
+      print('cheating');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (currentState == "Show Questions")
-                  Center(
-                    child: SingleChildScrollView(
-                      child: Column(
+    return FGBGNotifier(
+        onEvent: _handleAppLostFocus,
+        child: Stack(
+          children: [
+            Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (currentState == "Show Questions")
+                      Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (questions.isNotEmpty)
+                                Question(
+                                  currentQuestionIndex + 1,
+                                  questions.keys.toList()[
+                                      questionIndexes[currentQuestionIndex]],
+                                ),
+                              ...optionIndexes.map((index) {
+                                if (questions.isNotEmpty) {
+                                  return Button(
+                                    questions.values.toList()[questionIndexes[
+                                        currentQuestionIndex]][index],
+                                    (option) => _optionSelected(option),
+                                    active: index == activeButton,
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              }),
+                              if (questions.isNotEmpty)
+                                Nextbtn(_nextQuestion,
+                                    disabled: activeButton == -1),
+                              if (questions.isNotEmpty)
+                                TimerWidget(
+                                  durationInSeconds: 1000,
+                                  onTimerComplete: () => setState(() {
+                                    currentState = 'Show Score';
+                                  }),
+                                ),
+                            ],
+                          ),
+                        ),
+                      )
+                    else if (currentState == "Show Score")
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          if (questions.isNotEmpty)
-                            Question(
-                              currentQuestionIndex + 1,
-                              questions.keys.toList()[
-                                  questionIndexes[currentQuestionIndex]],
-                            ),
-                          ...optionIndexes.map((index) {
-                            if (questions.isNotEmpty) {
-                              return Button(
-                                questions.values.toList()[
-                                        questionIndexes[currentQuestionIndex]]
-                                    [index],
-                                (option) => _optionSelected(option),
-                                active: index == activeButton,
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
-                          if (questions.isNotEmpty)
-                            Nextbtn(_nextQuestion,
-                                disabled: activeButton == -1),
-                          if (questions.isNotEmpty)
-                            TimerWidget(
-                              durationInSeconds: 1000,
-                              onTimerComplete: () => setState(() {
-                                currentState = 'Show Score';
-                              }),
-                            ),
+                          Question(0, "You scored $score/${questions.length}"),
+                          Button(
+                            "Main Page",
+                            widget.mainPage,
+                            fontSize: 18.6,
+                            height: 13,
+                            width: 220,
+                            active: true,
+                          ),
                         ],
                       ),
-                    ),
-                  )
-                else if (currentState == "Show Score")
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Question(0, "You scored $score/${questions.length}"),
-                      Button(
-                        "Main Page",
-                        widget.mainPage,
-                        fontSize: 18.6,
-                        height: 13,
-                        width: 220,
-                        active: true,
-                      ),
-                    ],
-                  ),
-              ],
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-        if (isLoading) Center(child: Loader(isLoading: isLoading)),
-      ],
-    );
+            if (isLoading) Center(child: Loader(isLoading: isLoading)),
+          ],
+        ));
   }
 }
