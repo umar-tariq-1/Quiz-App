@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   String currentPage = "Main Page";
 
-  void _changePage(String page) {
+  void changePage(String page) {
     setState(() {
       currentPage = page;
     });
@@ -45,13 +45,13 @@ class MyAppState extends State<MyApp> {
         appBar: AppBar(
           toolbarHeight: 68,
           centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            iconSize: 29,
-            onPressed: () {
-              // Scaffold.of(context).openDrawer();
-            },
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(Icons.menu),
+          //   iconSize: 29,
+          //   onPressed: () {
+          //     // Scaffold.of(context).openDrawer();
+          //   },
+          // ),
           title: const Text(
             "Quiz App",
             style: TextStyle(
@@ -64,17 +64,18 @@ class MyAppState extends State<MyApp> {
           backgroundColor: const Color.fromARGB(255, 10, 10, 10),
           foregroundColor: const Color.fromARGB(255, 239, 239, 239),
         ),
+        drawer: const NavigationDrawer(),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Center(
           child: currentPage == "Attempt Quiz"
-              ? Quiz(mainPage: (_) => _changePage("Main Page"))
+              ? Quiz(mainPage: (_) => changePage("Main Page"))
               : currentPage == "Main Page"
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Button(
                           "Attempt Quiz",
-                          (_) => _changePage("Attempt Quiz"),
+                          (_) => changePage("Attempt Quiz"),
                           fontSize: 18.6,
                           height: 13,
                           width: 220,
@@ -86,7 +87,7 @@ class MyAppState extends State<MyApp> {
                         ),
                         Button(
                           "Add Questions",
-                          (_) => _changePage("Add Questions"),
+                          (_) => changePage("Add Questions"),
                           fontSize: 18.6,
                           height: 13,
                           width: 220,
@@ -105,7 +106,7 @@ class MyAppState extends State<MyApp> {
                             AddQuestionForm(_handleQuestionSubmitted),
                             Button(
                               "Main Page",
-                              (_) => _changePage("Main Page"),
+                              (_) => changePage("Main Page"),
                               fontSize: 18.6,
                               height: 13,
                               width: 220,
@@ -123,3 +124,34 @@ class MyAppState extends State<MyApp> {
     );
   }
 }
+
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) => Drawer(
+        child: SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                buildHeader(context),
+                buildMenuItems(context)
+              ]),
+        ),
+      );
+}
+
+Widget buildHeader(BuildContext context) => Container();
+Widget buildMenuItems(BuildContext context) => Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.add),
+          title: const Text("Add Question"),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Quiz(mainPage: (_) {})));
+          },
+        )
+      ],
+    );

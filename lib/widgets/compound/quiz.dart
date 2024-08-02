@@ -42,7 +42,7 @@ class _QuizState extends State<Quiz> {
     });
 
     var url =
-        'https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple';
+        'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple';
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -126,76 +126,102 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return FGBGNotifier(
         onEvent: _handleAppLostFocus,
-        child: Stack(
-          children: [
-            Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (currentState == "Show Questions")
-                      Center(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (questions.isNotEmpty)
-                                Question(
-                                  currentQuestionIndex + 1,
-                                  questions.keys.toList()[
-                                      questionIndexes[currentQuestionIndex]],
-                                ),
-                              ...optionIndexes.map((index) {
-                                if (questions.isNotEmpty) {
-                                  return Button(
-                                    questions.values.toList()[questionIndexes[
-                                        currentQuestionIndex]][index],
-                                    (option) => _optionSelected(option),
-                                    active: index == activeButton,
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              }),
-                              if (questions.isNotEmpty)
-                                Nextbtn(_nextQuestion,
-                                    disabled: activeButton == -1),
-                              if (questions.isNotEmpty)
-                                TimerWidget(
-                                  durationInSeconds: 1000,
-                                  onTimerComplete: () => setState(() {
-                                    currentState = 'Show Score';
-                                  }),
-                                ),
-                            ],
-                          ),
-                        ),
-                      )
-                    else if (currentState == "Show Score")
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Question(0, "You scored $score/${questions.length}"),
-                          Button(
-                            "Main Page",
-                            widget.mainPage,
-                            fontSize: 18.6,
-                            height: 13,
-                            width: 220,
-                            leadingIcon: const Icon(
-                              Icons.arrow_back_rounded,
-                              color: Color.fromARGB(255, 239, 239, 239),
-                            ),
-                            active: true,
-                          ),
-                        ],
-                      ),
-                  ],
+        child: Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 68,
+              centerTitle: true,
+              // leading: IconButton(
+              //   icon: const Icon(null),
+              //   iconSize: 29,
+              //   onPressed: () {
+              //     // Scaffold.of(context).openDrawer();
+              //   },
+              // ),
+              title: const Text(
+                "Attempt Quiz",
+                style: TextStyle(
+                  fontFamily: 'BeautifulPeople',
+                  fontSize: 25,
+                  letterSpacing: 1,
+                  wordSpacing: 1,
                 ),
               ),
+              backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+              foregroundColor: const Color.fromARGB(255, 239, 239, 239),
             ),
-            if (isLoading) Center(child: Loader(isLoading: isLoading)),
-          ],
-        ));
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            body: Stack(
+              children: [
+                Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (currentState == "Show Questions")
+                          Center(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (questions.isNotEmpty)
+                                    Question(
+                                      currentQuestionIndex + 1,
+                                      questions.keys.toList()[questionIndexes[
+                                          currentQuestionIndex]],
+                                    ),
+                                  ...optionIndexes.map((index) {
+                                    if (questions.isNotEmpty) {
+                                      return Button(
+                                        questions.values.toList()[
+                                            questionIndexes[
+                                                currentQuestionIndex]][index],
+                                        (option) => _optionSelected(option),
+                                        active: index == activeButton,
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  }),
+                                  if (questions.isNotEmpty)
+                                    Nextbtn(_nextQuestion,
+                                        disabled: activeButton == -1),
+                                  if (questions.isNotEmpty)
+                                    TimerWidget(
+                                      durationInSeconds: 1000,
+                                      onTimerComplete: () => setState(() {
+                                        currentState = 'Show Score';
+                                      }),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          )
+                        else if (currentState == "Show Score")
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Question(
+                                  0, "You scored $score/${questions.length}"),
+                              Button(
+                                "Main Page",
+                                widget.mainPage,
+                                fontSize: 18.6,
+                                height: 13,
+                                width: 220,
+                                leadingIcon: const Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Color.fromARGB(255, 239, 239, 239),
+                                ),
+                                active: true,
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                if (isLoading) Center(child: Loader(isLoading: isLoading)),
+              ],
+            )));
   }
 }
