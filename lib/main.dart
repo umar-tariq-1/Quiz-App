@@ -172,85 +172,89 @@ class MyAppState extends State<MyApp> {
               body: Stack(
                 children: [
                   Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: (currentWidgets == "Show Questions")
-                        ? [
-                            Question(
-                                currentQuestionIndex + 1,
-                                questions.keys.toList()[
-                                    questionIndexes[currentQuestionIndex]]),
-                            ...optionIndexes.map((index) {
-                              return Button(
-                                questions.values.toList()[
-                                        questionIndexes[currentQuestionIndex]]
-                                    [index],
-                                optionSelected,
-                                active: index == activeButton,
-                              );
-                            }),
-                            Nextbtn(nextQuestion, disabled: activeButton == -1),
-                            Container(
-                              margin: const EdgeInsets.only(top: 0),
-                              child: TimerWidget(
-                                durationInSeconds: 1000,
-                                onTimerComplete: () => timeUp(),
-                              ),
-                            )
-                          ]
-                        : (currentWidgets == "Show Score")
-                            ? [
-                                Question(
-                                    0, "You scored $score/${questions.length}"),
-                                Button(
-                                  "Retake Quiz",
-                                  reset,
-                                  fontSize: 18.6,
-                                  height: 13,
-                                  width: 220,
-                                  active: true,
+                      child: SingleChildScrollView(
+                    child: Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: (currentWidgets == "Show Questions")
+                          ? [
+                              Question(
+                                  currentQuestionIndex + 1,
+                                  questions.keys.toList()[
+                                      questionIndexes[currentQuestionIndex]]),
+                              ...optionIndexes.map((index) {
+                                return Button(
+                                  questions.values.toList()[
+                                          questionIndexes[currentQuestionIndex]]
+                                      [index],
+                                  optionSelected,
+                                  active: index == activeButton,
+                                );
+                              }),
+                              Nextbtn(nextQuestion,
+                                  disabled: activeButton == -1),
+                              Container(
+                                margin: const EdgeInsets.only(top: 0),
+                                child: TimerWidget(
+                                  durationInSeconds: 1000,
+                                  onTimerComplete: () => timeUp(),
                                 ),
-                                Button(
-                                  "Main Page",
-                                  mainPage,
-                                  fontSize: 18.6,
-                                  height: 13,
-                                  width: 220,
-                                  active: true,
-                                ),
-                              ]
-                            : (currentWidgets == "Main Page")
-                                ? [
-                                    Button(
-                                      "Attempt Quiz",
-                                      reset,
-                                      fontSize: 18.6,
-                                      height: 13,
-                                      width: 220,
-                                      active: true,
-                                    ),
-                                    Button(
-                                      "Add Questions",
-                                      addQuestions,
-                                      fontSize: 18.6,
-                                      height: 13,
-                                      width: 220,
-                                      active: true,
-                                    ),
-                                  ]
-                                : (currentWidgets == "Add Questions")
-                                    ? [
-                                        AddQuestionForm(questionSubmitted),
-                                        Button(
-                                          "Main Page",
-                                          mainPage,
-                                          fontSize: 18.6,
-                                          height: 13,
-                                          width: 220,
-                                          active: true,
-                                        ),
-                                      ]
-                                    : [],
+                              )
+                            ]
+                          : (currentWidgets == "Show Score")
+                              ? [
+                                  Question(0,
+                                      "You scored $score/${questions.length}"),
+                                  Button(
+                                    "Retake Quiz",
+                                    reset,
+                                    fontSize: 18.6,
+                                    height: 13,
+                                    width: 220,
+                                    active: true,
+                                  ),
+                                  Button(
+                                    "Main Page",
+                                    mainPage,
+                                    fontSize: 18.6,
+                                    height: 13,
+                                    width: 220,
+                                    active: true,
+                                  ),
+                                ]
+                              : (currentWidgets == "Main Page")
+                                  ? [
+                                      Button(
+                                        "Attempt Quiz",
+                                        reset,
+                                        fontSize: 18.6,
+                                        height: 13,
+                                        width: 220,
+                                        active: true,
+                                      ),
+                                      Button(
+                                        "Add Questions",
+                                        addQuestions,
+                                        fontSize: 18.6,
+                                        height: 13,
+                                        width: 220,
+                                        active: true,
+                                      ),
+                                    ]
+                                  : (currentWidgets == "Add Questions")
+                                      ? [
+                                          AddQuestionForm(questionSubmitted),
+                                          Button(
+                                            "Main Page",
+                                            mainPage,
+                                            fontSize: 18.6,
+                                            height: 13,
+                                            width: 220,
+                                            active: true,
+                                          ),
+                                        ]
+                                      : [],
+                    )),
                   )),
                   Loader(isLoading: isLoading),
                 ],
