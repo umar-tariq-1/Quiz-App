@@ -79,10 +79,7 @@ class MyAppState extends State<MyApp> {
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Center(
           child: currentPage == "Show Questions"
-              ? Quiz(
-                  mainPage: (_) => setState(() {
-                        currentPage = "Main Page";
-                      }))
+              ? Quiz(mainPage: _showMainPage)
               : currentPage == "Main Page"
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -94,6 +91,10 @@ class MyAppState extends State<MyApp> {
                           height: 13,
                           width: 220,
                           active: true,
+                          leadingIcon: const Icon(
+                            Icons.content_paste_go_rounded,
+                            color: Color.fromARGB(255, 239, 239, 239),
+                          ),
                         ),
                         Button(
                           "Add Questions",
@@ -102,6 +103,10 @@ class MyAppState extends State<MyApp> {
                           height: 13,
                           width: 220,
                           active: true,
+                          leadingIcon: const Icon(
+                            Icons.add_comment_rounded,
+                            color: Color.fromARGB(255, 239, 239, 239),
+                          ),
                         ),
                       ],
                     )
@@ -117,6 +122,10 @@ class MyAppState extends State<MyApp> {
                               height: 13,
                               width: 220,
                               active: true,
+                              leadingIcon: const Icon(
+                                Icons.arrow_back_rounded,
+                                color: Color.fromARGB(255, 239, 239, 239),
+                              ),
                             ),
                           ],
                         )

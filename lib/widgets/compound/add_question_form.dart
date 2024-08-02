@@ -70,6 +70,11 @@ class AddQuestionForm extends StatelessWidget {
         height: 13,
         width: 220,
         active: true,
+        leadingIcon: const Icon(
+          Icons.playlist_add_check_circle_outlined,
+          color: Color.fromARGB(255, 239, 239, 239),
+          size: 25,
+        ),
       ),
     ]);
   }

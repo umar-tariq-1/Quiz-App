@@ -42,7 +42,7 @@ class _QuizState extends State<Quiz> {
     });
 
     var url =
-        'https://opentdb.com/api.php?amount=3&category=21&difficulty=easy&type=multiple';
+        'https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple';
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -182,6 +182,10 @@ class _QuizState extends State<Quiz> {
                             fontSize: 18.6,
                             height: 13,
                             width: 220,
+                            leadingIcon: const Icon(
+                              Icons.arrow_back_rounded,
+                              color: Color.fromARGB(255, 239, 239, 239),
+                            ),
                             active: true,
                           ),
                         ],
