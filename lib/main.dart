@@ -19,21 +19,9 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   String currentPage = "Main Page";
 
-  void _showQuiz(_) {
+  void _changePage(String page) {
     setState(() {
-      currentPage = "Show Questions";
-    });
-  }
-
-  void _showAddQuestions(_) {
-    setState(() {
-      currentPage = "Add Questions";
-    });
-  }
-
-  void _showMainPage(_) {
-    setState(() {
-      currentPage = "Main Page";
+      currentPage = page;
     });
   }
 
@@ -78,15 +66,15 @@ class MyAppState extends State<MyApp> {
         ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Center(
-          child: currentPage == "Show Questions"
-              ? Quiz(mainPage: _showMainPage)
+          child: currentPage == "Attempt Quiz"
+              ? Quiz(mainPage: (_) => _changePage("Main Page"))
               : currentPage == "Main Page"
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Button(
                           "Attempt Quiz",
-                          _showQuiz,
+                          (_) => _changePage("Attempt Quiz"),
                           fontSize: 18.6,
                           height: 13,
                           width: 220,
@@ -98,7 +86,7 @@ class MyAppState extends State<MyApp> {
                         ),
                         Button(
                           "Add Questions",
-                          _showAddQuestions,
+                          (_) => _changePage("Add Questions"),
                           fontSize: 18.6,
                           height: 13,
                           width: 220,
@@ -117,7 +105,7 @@ class MyAppState extends State<MyApp> {
                             AddQuestionForm(_handleQuestionSubmitted),
                             Button(
                               "Main Page",
-                              _showMainPage,
+                              (_) => _changePage("Main Page"),
                               fontSize: 18.6,
                               height: 13,
                               width: 220,
