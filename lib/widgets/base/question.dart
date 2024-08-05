@@ -18,7 +18,7 @@ class Question extends StatelessWidget {
           style: const TextStyle(
               fontFamily: 'RalewaySemiBold',
               color: Color.fromARGB(255, 0, 0, 0),
-              fontSize: 26.25,
+              fontSize: 26,
               letterSpacing: 0),
         ));
   }
