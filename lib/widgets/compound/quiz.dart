@@ -9,7 +9,7 @@ import 'package:quiz_app/widgets/base/question.dart';
 import 'package:quiz_app/widgets/base/next_button.dart';
 import 'package:quiz_app/widgets/base/timer.dart';
 import 'package:quiz_app/widgets/base/loader.dart';
-import 'package:flutter_fgbg/flutter_fgbg.dart';
+// import 'package:flutter_fgbg/flutter_fgbg.dart';
 
 class Quiz extends StatefulWidget {
   final BuildContext mainContext;
@@ -21,7 +21,7 @@ class Quiz extends StatefulWidget {
   _QuizState createState() => _QuizState();
 }
 
-class _QuizState extends State<Quiz> {
+class _QuizState extends State<Quiz> with WidgetsBindingObserver {
   int currentQuestionIndex = 0;
   int activeButton = -1;
   List<int> questionIndexes = [];
@@ -35,6 +35,24 @@ class _QuizState extends State<Quiz> {
   void initState() {
     super.initState();
     _fetchQuestions();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      // The app has resumed (gained focus)
+      print("Gotcha! Hahahahaha");
+    } else if (state == AppLifecycleState.paused) {
+      // The app has paused (lost focus)
+    }
   }
 
   Future<void> _fetchQuestions() async {
@@ -117,11 +135,11 @@ class _QuizState extends State<Quiz> {
     });
   }
 
-  void _handleAppLostFocus(FGBGType state) {
-    if (state == FGBGType.background) {
-      print('cheating');
-    }
-  }
+  // void _handleAppLostFocus(FGBGType state) {
+  //   if (state == FGBGType.background) {
+  //     print('cheating');
+  //   }
+  // }
 
   void _goBack(_) {
     Navigator.pop(widget.mainContext);
@@ -132,100 +150,98 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return PopScope(
         canPop: false,
-        child: FGBGNotifier(
-            onEvent: _handleAppLostFocus,
-            child: Scaffold(
-                appBar: AppBar(
-                  toolbarHeight: 68,
-                  centerTitle: true,
-                  title: const Text(
-                    "Attempt Quiz",
-                    style: TextStyle(
-                      fontFamily: 'BeautifulPeople',
-                      fontSize: 25,
-                      letterSpacing: 1.2,
-                      wordSpacing: 1.2,
-                    ),
-                  ),
-                  backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-                  foregroundColor: const Color.fromARGB(255, 239, 239, 239),
-                  leading: const Icon(null),
+        /* child: FGBGNotifier(
+            onEvent: _handleAppLostFocus, */
+        child: Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 68,
+              centerTitle: true,
+              title: const Text(
+                "Attempt Quiz",
+                style: TextStyle(
+                  fontFamily: 'BeautifulPeople',
+                  fontSize: 25,
+                  letterSpacing: 1.2,
+                  wordSpacing: 1.2,
                 ),
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                body: Stack(
-                  children: [
-                    Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (currentState == "Show Questions")
-                              Center(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      if (questions.isNotEmpty)
-                                        Question(
-                                          currentQuestionIndex + 1,
-                                          questions.keys.toList()[
-                                              questionIndexes[
-                                                  currentQuestionIndex]],
-                                        ),
-                                      ...optionIndexes.map((index) {
-                                        if (questions.isNotEmpty) {
-                                          return Button(
-                                            questions.values.toList()[
-                                                    questionIndexes[
-                                                        currentQuestionIndex]]
-                                                [index],
-                                            (option) => _optionSelected(option),
-                                            active: index == activeButton,
-                                          );
-                                        } else {
-                                          return Container();
-                                        }
-                                      }),
-                                      if (questions.isNotEmpty)
-                                        Nextbtn(_nextQuestion,
-                                            disabled: activeButton == -1),
-                                      if (questions.isNotEmpty)
-                                        TimerWidget(
-                                          durationInSeconds: 1000,
-                                          onTimerComplete: () => setState(() {
-                                            currentState = 'Show Score';
-                                          }),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            else if (currentState == "Show Score")
-                              Column(
+              ),
+              backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+              foregroundColor: const Color.fromARGB(255, 239, 239, 239),
+              leading: const Icon(null),
+            ),
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            body: Stack(
+              children: [
+                Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (currentState == "Show Questions")
+                          Center(
+                            child: SingleChildScrollView(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Question(0,
-                                      "You scored $score/${questions.length}"),
-                                  Button(
-                                    "Main Page",
-                                    _goBack,
-                                    fontSize: 18.6,
-                                    height: 13,
-                                    width: 220,
-                                    leadingIcon: const Icon(
-                                      Icons.arrow_back_rounded,
-                                      color: Color.fromARGB(255, 239, 239, 239),
+                                  if (questions.isNotEmpty)
+                                    Question(
+                                      currentQuestionIndex + 1,
+                                      questions.keys.toList()[questionIndexes[
+                                          currentQuestionIndex]],
                                     ),
-                                    active: true,
-                                  ),
+                                  ...optionIndexes.map((index) {
+                                    if (questions.isNotEmpty) {
+                                      return Button(
+                                        questions.values.toList()[
+                                            questionIndexes[
+                                                currentQuestionIndex]][index],
+                                        (option) => _optionSelected(option),
+                                        active: index == activeButton,
+                                      );
+                                    } else {
+                                      return Container();
+                                    }
+                                  }),
+                                  if (questions.isNotEmpty)
+                                    Nextbtn(_nextQuestion,
+                                        disabled: activeButton == -1),
+                                  if (questions.isNotEmpty)
+                                    TimerWidget(
+                                      durationInSeconds: 1000,
+                                      onTimerComplete: () => setState(() {
+                                        currentState = 'Show Score';
+                                      }),
+                                    ),
                                 ],
                               ),
-                          ],
-                        ),
-                      ),
+                            ),
+                          )
+                        else if (currentState == "Show Score")
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Question(
+                                  0, "You scored $score/${questions.length}"),
+                              Button(
+                                "Main Page",
+                                _goBack,
+                                fontSize: 18.6,
+                                height: 13,
+                                width: 220,
+                                leadingIcon: const Icon(
+                                  Icons.arrow_back_rounded,
+                                  color: Color.fromARGB(255, 239, 239, 239),
+                                ),
+                                active: true,
+                              ),
+                            ],
+                          ),
+                      ],
                     ),
-                    if (isLoading) Center(child: Loader(isLoading: isLoading)),
-                  ],
-                ))));
+                  ),
+                ),
+                if (isLoading) Center(child: Loader(isLoading: isLoading)),
+              ],
+            )) /* ) */);
   }
 }
