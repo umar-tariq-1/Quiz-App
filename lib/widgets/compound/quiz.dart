@@ -13,8 +13,9 @@ import 'package:flutter_fgbg/flutter_fgbg.dart';
 
 class Quiz extends StatefulWidget {
   final BuildContext mainContext;
+  final void Function(String) changePage;
 
-  const Quiz({super.key, required this.mainContext});
+  const Quiz({super.key, required this.mainContext, required this.changePage});
 
   @override
   _QuizState createState() => _QuizState();
@@ -124,6 +125,7 @@ class _QuizState extends State<Quiz> {
 
   void _goBack(_) {
     Navigator.pop(widget.mainContext);
+    widget.changePage("Home Page");
   }
 
   @override
