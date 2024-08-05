@@ -2,16 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:quiz_app/widgets/base/list_tile.dart';
-import 'package:quiz_app/widgets/compound/add_question_form.dart';
-import 'package:quiz_app/widgets/compound/quiz.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
   String active;
   final void Function(String) changePage;
   CustomNavigationDrawer(
-      {super.key,
-      this.active = "Main Page",
-      this.changePage = _defaultChangePage});
+      {super.key, this.active = "", this.changePage = _defaultChangePage});
 
   static void _defaultChangePage(String page) {}
 
@@ -55,25 +51,14 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             text: "New Quiz",
             iconData: Icons.add_comment_outlined,
             onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Quiz(
-                        mainContext: context,
-                        changePage: changePage,
-                      )));
-              changePage("New Quiz");
+              Navigator.of(context).popAndPushNamed('/new-quiz');
             }),
         CustomListTile(
             active: active == "Attempt Quiz",
             text: "Attempt Quiz",
             iconData: Icons.content_paste_go_sharp,
             onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Quiz(
-                        mainContext: context,
-                        changePage: changePage,
-                      )));
+              Navigator.of(context).popAndPushNamed("/attempt-quiz");
               changePage("Attempt Quiz");
             }),
         CustomListTile(
@@ -81,10 +66,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             text: "Edit Quiz",
             iconData: Icons.edit_calendar_outlined,
             onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AddQuestionForm(onSubmit: (_) {})));
-              changePage("Edit Quiz");
+              Navigator.of(context).popAndPushNamed('/edit-quiz');
             }),
         const Divider(
           color: Color.fromARGB(255, 10, 10, 10),
@@ -95,12 +77,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             iconData: Icons.home_outlined,
             iconSize: 27.5,
             onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Quiz(
-                        mainContext: context,
-                        changePage: changePage,
-                      )));
+              Navigator.of(context).popAndPushNamed('/');
               changePage("Home Page");
             }),
       ],

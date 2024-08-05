@@ -26,74 +26,56 @@ class AddQuestionForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 68,
-          centerTitle: true,
-          title: const Text(
-            "Edit Quiz",
-            style: TextStyle(
-              fontFamily: 'BeautifulPeople',
-              fontSize: 25,
-              letterSpacing: 1.2,
-              wordSpacing: 1.2,
-            ),
-          ),
-          backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-          foregroundColor: const Color.fromARGB(255, 239, 239, 239),
-          leading: const Icon(null),
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      CustomInputField(
+        controller: controllers['question']!,
+        label: 'Question',
+      ),
+      CustomInputField(
+        controller: controllers['answer']!,
+        label: 'Answer',
+        color: Colors.green.shade800,
+      ),
+      CustomInputField(
+          controller: controllers['option1']!,
+          label: 'Option 1',
+          color: Colors.red.shade800),
+      CustomInputField(
+          controller: controllers['option2']!,
+          label: 'Option 2',
+          color: Colors.red.shade800),
+      CustomInputField(
+          controller: controllers['option3']!,
+          label: 'Option 3',
+          color: Colors.red.shade800),
+      Button(
+        "Submit",
+        (_) {
+          onSubmit({
+            'question': controllers['question']!.text,
+            'answer': controllers['answer']!.text,
+            'option1': controllers['option1']!.text,
+            'option2': controllers['option2']!.text,
+            'option3': controllers['option3']!.text
+          });
+          clearControllers([
+            'question',
+            'answer',
+            'option1',
+            'option2',
+            'option3',
+          ]);
+        },
+        fontSize: 18.6,
+        height: 13,
+        width: 220,
+        active: true,
+        leadingIcon: const Icon(
+          Icons.playlist_add_check_circle_outlined,
+          color: Color.fromARGB(255, 239, 239, 239),
+          size: 25,
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          CustomInputField(
-            controller: controllers['question']!,
-            label: 'Question',
-          ),
-          CustomInputField(
-            controller: controllers['answer']!,
-            label: 'Answer',
-            color: Colors.green.shade800,
-          ),
-          CustomInputField(
-              controller: controllers['option1']!,
-              label: 'Option 1',
-              color: Colors.red.shade800),
-          CustomInputField(
-              controller: controllers['option2']!,
-              label: 'Option 2',
-              color: Colors.red.shade800),
-          CustomInputField(
-              controller: controllers['option3']!,
-              label: 'Option 3',
-              color: Colors.red.shade800),
-          Button(
-            "Submit",
-            (_) {
-              onSubmit({
-                'question': controllers['question']!.text,
-                'answer': controllers['answer']!.text,
-                'option1': controllers['option1']!.text,
-                'option2': controllers['option2']!.text,
-                'option3': controllers['option3']!.text
-              });
-              clearControllers([
-                'question',
-                'answer',
-                'option1',
-                'option2',
-                'option3',
-              ]);
-            },
-            fontSize: 18.6,
-            height: 13,
-            width: 220,
-            active: true,
-            leadingIcon: const Icon(
-              Icons.playlist_add_check_circle_outlined,
-              color: Color.fromARGB(255, 239, 239, 239),
-              size: 25,
-            ),
-          ),
-        ]));
+      ),
+    ]);
   }
 }

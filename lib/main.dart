@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/widgets/base/navigation_drawer.dart';
+import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
+import 'package:quiz_app/widgets/pages/edit_quiz.dart';
+import 'package:quiz_app/widgets/pages/new_quiz.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,13 +26,16 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  void _handleQuestionSubmitted(questionData) {
-    print(questionData);
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/new-quiz': (context) => const NewQuiz(),
+        '/attempt-quiz': (context) =>
+            AttemptQuiz(mainContext: context, changePage: _changePage),
+        '/edit-quiz': (context) => const EditQuiz(),
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Raleway',

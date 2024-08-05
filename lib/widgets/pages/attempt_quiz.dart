@@ -11,17 +11,18 @@ import 'package:quiz_app/widgets/base/timer.dart';
 import 'package:quiz_app/widgets/base/loader.dart';
 // import 'package:flutter_fgbg/flutter_fgbg.dart';
 
-class Quiz extends StatefulWidget {
+class AttemptQuiz extends StatefulWidget {
   final BuildContext mainContext;
   final void Function(String) changePage;
 
-  const Quiz({super.key, required this.mainContext, required this.changePage});
+  const AttemptQuiz(
+      {super.key, required this.mainContext, required this.changePage});
 
   @override
   _QuizState createState() => _QuizState();
 }
 
-class _QuizState extends State<Quiz> with WidgetsBindingObserver {
+class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
   int currentQuestionIndex = 0;
   int activeButton = -1;
   List<int> questionIndexes = [];
@@ -141,8 +142,8 @@ class _QuizState extends State<Quiz> with WidgetsBindingObserver {
   //   }
   // }
 
-  void _goBack(_) {
-    Navigator.pop(widget.mainContext);
+  void _goHome(_) {
+    Navigator.of(context).popAndPushNamed('/');
     widget.changePage("Home Page");
   }
 
@@ -224,7 +225,7 @@ class _QuizState extends State<Quiz> with WidgetsBindingObserver {
                                   0, "You scored $score/${questions.length}"),
                               Button(
                                 "Main Page",
-                                _goBack,
+                                _goHome,
                                 fontSize: 18.6,
                                 height: 13,
                                 width: 220,
