@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quiz_app/widgets/base/navigation_drawer.dart';
 import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
 import 'package:quiz_app/widgets/pages/edit_quiz.dart';
@@ -46,34 +47,45 @@ class MyAppState extends State<MyApp> {
         ),
       ),
       home: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 68,
-          centerTitle: true,
-          leading: Builder(
-            builder: (context) {
-              return Container(
-                  margin: const EdgeInsets.only(left: 5),
-                  child: IconButton(
-                    icon: const Icon(Icons.menu),
-                    iconSize: 29,
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(68),
+            child: Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    spreadRadius: 4,
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
+                  ),
+                ]),
+                child: AppBar(
+                  toolbarHeight: 68,
+                  centerTitle: true,
+                  leading: Builder(
+                    builder: (context) {
+                      return Container(
+                          margin: const EdgeInsets.only(left: 5),
+                          child: IconButton(
+                            icon: const Icon(Icons.menu),
+                            iconSize: 29,
+                            onPressed: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                          ));
                     },
-                  ));
-            },
-          ),
-          title: const Text(
-            "Quiz App",
-            style: TextStyle(
-              fontFamily: 'BeautifulPeople',
-              fontSize: 25,
-              letterSpacing: 0.6,
-              wordSpacing: 0.6,
-            ),
-          ),
-          backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-          foregroundColor: const Color.fromARGB(255, 239, 239, 239),
-        ),
+                  ),
+                  title: const Text(
+                    "Quiz App",
+                    style: TextStyle(
+                      fontFamily: 'BeautifulPeople',
+                      fontSize: 25,
+                      letterSpacing: 0.6,
+                      wordSpacing: 0.6,
+                    ),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+                  foregroundColor: const Color.fromARGB(255, 239, 239, 239),
+                ))),
         drawer: CustomNavigationDrawer(
           active: currentPage,
           changePage: _changePage,

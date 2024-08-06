@@ -10,6 +10,10 @@ class NewQuiz extends StatefulWidget {
 }
 
 class _NewQuizState extends State<NewQuiz> {
+  void _questionSubmitted(data) {
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +49,6 @@ class _NewQuizState extends State<NewQuiz> {
         drawer: CustomNavigationDrawer(
           active: "New Quiz",
         ),
-        body: AddQuestionForm(onSubmit: (_) {}));
+        body: AddQuestionForm(onSubmit: _questionSubmitted));
   }
 }

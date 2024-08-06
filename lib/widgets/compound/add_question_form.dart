@@ -49,14 +49,14 @@ class AddQuestionForm extends StatelessWidget {
           label: 'Option 3',
           color: Colors.red.shade800),
       Button(
-        "Submit",
-        (_) {
+        buttonText: "Submit",
+        onClick: (_) {
           onSubmit({
-            'question': controllers['question']!.text,
-            'answer': controllers['answer']!.text,
-            'option1': controllers['option1']!.text,
-            'option2': controllers['option2']!.text,
-            'option3': controllers['option3']!.text
+            'question': controllers['question']!.text.trim(),
+            'answer': controllers['answer']!.text.trim(),
+            'option1': controllers['option1']!.text.trim(),
+            'option2': controllers['option2']!.text.trim(),
+            'option3': controllers['option3']!.text.trim()
           });
           clearControllers([
             'question',
@@ -71,7 +71,7 @@ class AddQuestionForm extends StatelessWidget {
         width: 220,
         active: true,
         leadingIcon: const Icon(
-          Icons.playlist_add_check_circle_outlined,
+          Icons.add_task_rounded,
           color: Color.fromARGB(255, 239, 239, 239),
           size: 25,
         ),

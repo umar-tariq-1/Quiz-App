@@ -12,10 +12,10 @@ class Button extends StatelessWidget {
   final Icon? leadingIcon;
   final void Function(dynamic) onClick;
 
-  Button(
-    this.buttonText,
-    this.onClick, {
+  Button({
     super.key,
+    required this.buttonText,
+    required this.onClick,
     this.fontSize = 18.25,
     this.height = 12.75,
     this.width = 245,

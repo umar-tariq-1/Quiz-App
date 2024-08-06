@@ -26,22 +26,59 @@ class CustomNavigationDrawer extends StatelessWidget {
       ));
 }
 
-Widget buildHeader(BuildContext context) => Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.only(top: 30),
-      margin: const EdgeInsets.only(bottom: 20),
-      color: const Color.fromARGB(255, 5, 5, 5),
-      height: 98,
-      child: const Text(
-        "Slide Menu",
-        style: TextStyle(
-          fontFamily: 'BeautifulPeople',
-          color: Color.fromARGB(255, 239, 239, 239),
-          fontSize: 24,
-          letterSpacing: 1.3,
-          wordSpacing: 1,
+Widget buildHeader(BuildContext context) => Column(
+      children: [
+        Container(
+          height: MediaQuery.of(context).padding.top,
+          color: const Color.fromARGB(255, 10, 10, 10),
         ),
-      ),
+        Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(bottom: 20),
+          height: 68,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 5, 5, 5),
+            border: const Border(
+              bottom: BorderSide(
+                color: Color.fromARGB(255, 239, 239, 239),
+                width: 1,
+              ),
+              top: BorderSide(
+                color: Color.fromARGB(255, 239, 239, 239),
+                width: 1,
+              ),
+              right: BorderSide(
+                color: Color.fromARGB(255, 239, 239, 239),
+                width: 1,
+              ),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                spreadRadius: 4,
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+            borderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(10),
+            ),
+          ),
+          child: Container(
+            margin: const EdgeInsets.only(top: 7),
+            child: const Text(
+              "Slide Menu",
+              style: TextStyle(
+                fontFamily: 'BeautifulPeople',
+                color: Color.fromARGB(255, 239, 239, 239),
+                fontSize: 23.5,
+                letterSpacing: 1.3,
+                wordSpacing: 1,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
 
 Widget buildMenuItems(BuildContext context, active, changePage) => Column(
@@ -75,7 +112,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             active: active == "Home Page",
             text: "Home Page",
             iconData: Icons.home_outlined,
-            iconSize: 27.5,
+            iconSize: 28,
             onTap: () {
               Navigator.of(context).popAndPushNamed('/');
               changePage("Home Page");

@@ -193,10 +193,11 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                   ...optionIndexes.map((index) {
                                     if (questions.isNotEmpty) {
                                       return Button(
-                                        questions.values.toList()[
+                                        buttonText: questions.values.toList()[
                                             questionIndexes[
                                                 currentQuestionIndex]][index],
-                                        (option) => _optionSelected(option),
+                                        onClick: (option) =>
+                                            _optionSelected(option),
                                         active: index == activeButton,
                                       );
                                     } else {
@@ -224,15 +225,15 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                               Question(
                                   0, "You scored $score/${questions.length}"),
                               Button(
-                                "Main Page",
-                                _goHome,
+                                buttonText: "Main Page",
+                                onClick: _goHome,
                                 fontSize: 18.6,
                                 height: 13,
                                 width: 220,
                                 leadingIcon: const Icon(
-                                  Icons.arrow_back_rounded,
-                                  color: Color.fromARGB(255, 239, 239, 239),
-                                ),
+                                    Icons.subdirectory_arrow_left_rounded,
+                                    color: Color.fromARGB(255, 239, 239, 239),
+                                    size: 27),
                                 active: true,
                               ),
                             ],
