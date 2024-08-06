@@ -59,37 +59,47 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
   Future<void> _fetchQuestions() async {
     setState(() {
       isLoading = true;
+      // errorMessage = null; // Clear any previous error messages
     });
 
     var url =
         'https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple';
-    var response = await http.get(Uri.parse(url));
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+    try {
+      var response = await http.get(Uri.parse(url));
 
-      setState(() {
-        questions = {};
-        for (var i = 0; i < data['results'].length; i++) {
-          String question = data['results'][i]['question'];
-          question = question.replaceAll('&#039;', "'");
-          question = question.replaceAll('&amp;', "&");
-          question = question.replaceAll('&quot;', '"');
-          List<dynamic> options = data['results'][i]['incorrect_answers'];
-          options.insert(0, data['results'][i]['correct_answer']);
-          for (var j = 0; j < 4; j++) {
-            options[j] = options[j].toString().replaceAll('&#039;', "'");
-            options[j] = options[j].toString().replaceAll('&amp;', "&");
-            options[j] = options[j].toString().replaceAll('&quot;', '"');
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        setState(() {
+          questions = {};
+          for (var i = 0; i < data['results'].length; i++) {
+            String question = data['results'][i]['question'];
+            question = question.replaceAll('&#039;', "'");
+            question = question.replaceAll('&amp;', "&");
+            question = question.replaceAll('&quot;', '"');
+            List<dynamic> options = data['results'][i]['incorrect_answers'];
+            options.insert(0, data['results'][i]['correct_answer']);
+            for (var j = 0; j < 4; j++) {
+              options[j] = options[j].toString().replaceAll('&#039;', "'");
+              options[j] = options[j].toString().replaceAll('&amp;', "&");
+              options[j] = options[j].toString().replaceAll('&quot;', '"');
+            }
+            questions[question] = options;
           }
-          questions[question] = options;
-        }
-        questionIndexes = _getRandomNumbers(0, questions.length - 1);
-        optionIndexes = _getRandomNumbers(0, 3);
+          questionIndexes = _getRandomNumbers(0, questions.length - 1);
+          optionIndexes = _getRandomNumbers(0, 3);
+          isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to load questions');
+      }
+    } catch (e) {
+      setState(() {
         isLoading = false;
+        _goHome('');
+        // errorMessage = 'Error: ${e.toString()}'; // Display the error message
       });
-    } else {
-      throw Exception('Failed to load questions');
     }
   }
 

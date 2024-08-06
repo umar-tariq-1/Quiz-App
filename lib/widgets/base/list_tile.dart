@@ -20,12 +20,20 @@ class CustomListTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 6),
       decoration: active
-          ? const BoxDecoration(
-              color: Color.fromARGB(255, 10, 10, 10),
-              borderRadius: BorderRadius.only(
+          ? BoxDecoration(
+              color: const Color.fromARGB(255, 10, 10, 10),
+              borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(9999),
                 bottomRight: Radius.circular(9999),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.35),
+                  spreadRadius: 3,
+                  blurRadius: 3,
+                  offset: const Offset(3, 3),
+                ),
+              ],
             )
           : null,
       child: ListTile(
