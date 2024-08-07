@@ -30,15 +30,14 @@ class Button extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9999),
           border: Border.all(
-              color: active
-                  ? const Color.fromARGB(255, 10, 10, 10)
-                  : const Color.fromARGB(0, 10, 10, 10),
+              color:
+                  active ? Theme.of(context).primaryColor : Colors.transparent,
               width: 2)),
       width: width,
       padding: const EdgeInsets.all(1.75),
       child: ElevatedButton(
           style: TextButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+              backgroundColor: Theme.of(context).primaryColor,
               padding:
                   EdgeInsets.symmetric(horizontal: 18.885, vertical: height)),
           onPressed: disabled
@@ -51,7 +50,7 @@ class Button extends StatelessWidget {
                   buttonText,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: const Color.fromARGB(255, 239, 239, 239),
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.1),
@@ -67,7 +66,7 @@ class Button extends StatelessWidget {
                       buttonText,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: const Color.fromARGB(255, 239, 239, 239),
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: fontSize,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.1),

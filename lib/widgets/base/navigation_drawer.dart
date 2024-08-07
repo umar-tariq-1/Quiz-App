@@ -30,34 +30,35 @@ Widget buildHeader(BuildContext context) => Column(
       children: [
         Container(
           height: MediaQuery.of(context).padding.top,
-          color: const Color.fromARGB(255, 10, 10, 10),
+          color:
+              Theme.of(context).appBarTheme.systemOverlayStyle?.statusBarColor,
         ),
         Container(
           alignment: Alignment.center,
           margin: const EdgeInsets.only(bottom: 20),
           height: 68,
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 5, 5, 5),
-            border: const Border(
+            color: Theme.of(context).primaryColor,
+            border: Border(
               bottom: BorderSide(
-                color: Color.fromARGB(255, 239, 239, 239),
+                color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
               top: BorderSide(
-                color: Color.fromARGB(255, 239, 239, 239),
+                color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
               right: BorderSide(
-                color: Color.fromARGB(255, 239, 239, 239),
+                color: Theme.of(context).colorScheme.secondary,
                 width: 1,
               ),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                spreadRadius: 4,
-                blurRadius: 6,
-                offset: const Offset(0, 3),
+                color: Colors.black.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: const Offset(0, 3.5),
               ),
             ],
             borderRadius: const BorderRadius.only(
@@ -66,11 +67,11 @@ Widget buildHeader(BuildContext context) => Column(
           ),
           child: Container(
             margin: const EdgeInsets.only(top: 7),
-            child: const Text(
+            child: Text(
               "Slide Menu",
               style: TextStyle(
                 fontFamily: 'BeautifulPeople',
-                color: Color.fromARGB(255, 239, 239, 239),
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 23.5,
                 letterSpacing: 1.3,
                 wordSpacing: 1,

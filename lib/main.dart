@@ -5,6 +5,13 @@ import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
 import 'package:quiz_app/widgets/pages/edit_quiz.dart';
 import 'package:quiz_app/widgets/pages/new_quiz.dart';
 
+Color statusBarColor = const Color.fromARGB(255, 10, 10, 10);
+Color appBarColor = const Color.fromARGB(255, 10, 10, 10);
+Color appBarTextColor = const Color.fromARGB(255, 239, 239, 239);
+Color backgroundColor = const Color.fromARGB(255, 239, 239, 239);
+Color primaryColor = const Color.fromARGB(255, 10, 10, 10);
+Color secondaryColor = const Color.fromARGB(255, 239, 239, 239);
+
 void main() {
   runApp(const MyApp());
 }
@@ -40,10 +47,15 @@ class MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Raleway',
-        focusColor: const Color.fromARGB(255, 239, 239, 239),
-        primaryColor: const Color.fromARGB(255, 10, 10, 10),
+        focusColor: Colors.white,
+        primaryColor: primaryColor,
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          secondary: const Color.fromARGB(255, 239, 239, 239),
+          secondary: secondaryColor,
+        ),
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: statusBarColor,
+          ),
         ),
       ),
       home: Scaffold(
@@ -52,10 +64,10 @@ class MyAppState extends State<MyApp> {
             child: Container(
                 decoration: BoxDecoration(boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.4),
-                    spreadRadius: 4,
-                    blurRadius: 6,
-                    offset: const Offset(0, 3),
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3.5),
                   ),
                 ]),
                 child: AppBar(
@@ -67,6 +79,7 @@ class MyAppState extends State<MyApp> {
                           margin: const EdgeInsets.only(left: 5),
                           child: IconButton(
                             icon: const Icon(Icons.menu),
+                            color: appBarTextColor,
                             iconSize: 29,
                             onPressed: () {
                               Scaffold.of(context).openDrawer();
@@ -83,14 +96,14 @@ class MyAppState extends State<MyApp> {
                       wordSpacing: 0.6,
                     ),
                   ),
-                  backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-                  foregroundColor: const Color.fromARGB(255, 239, 239, 239),
+                  backgroundColor: appBarColor,
+                  foregroundColor: appBarTextColor,
                 ))),
         drawer: CustomNavigationDrawer(
           active: currentPage,
           changePage: _changePage,
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: backgroundColor,
         body: Container(),
       ),
     );

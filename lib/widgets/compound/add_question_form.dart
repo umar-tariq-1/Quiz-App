@@ -30,6 +30,7 @@ class AddQuestionForm extends StatelessWidget {
       CustomInputField(
         controller: controllers['question']!,
         label: 'Question',
+        color: Theme.of(context).colorScheme.secondary,
       ),
       CustomInputField(
         controller: controllers['answer']!,
@@ -70,9 +71,9 @@ class AddQuestionForm extends StatelessWidget {
         height: 13,
         width: 220,
         active: true,
-        leadingIcon: const Icon(
+        leadingIcon: Icon(
           Icons.add_task_rounded,
-          color: Color.fromARGB(255, 239, 239, 239),
+          color: Theme.of(context).colorScheme.secondary,
           size: 25,
         ),
       ),

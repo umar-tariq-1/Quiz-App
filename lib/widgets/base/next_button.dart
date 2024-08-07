@@ -22,14 +22,14 @@ class Nextbtn extends StatelessWidget {
         ],
         color: disabled
             ? const Color.fromARGB(255, 208, 208, 208)
-            : const Color.fromARGB(255, 10, 10, 10),
+            : Theme.of(context).primaryColor,
       ),
       child: IconButton(
         icon: const Icon(Icons.arrow_forward),
         onPressed: disabled ? null : onClick,
         color: disabled
             ? const Color.fromARGB(255, 148, 148, 148)
-            : const Color.fromARGB(255, 239, 239, 239),
+            : Theme.of(context).colorScheme.secondary,
         iconSize: 26,
         padding: const EdgeInsets.all(13),
       ),

@@ -5,11 +5,14 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Loader extends StatelessWidget {
   bool isLoading;
+  final Color overlayColor;
+  final Color? loaderColor;
 
-  Loader({
-    super.key,
-    required this.isLoading,
-  });
+  Loader(
+      {super.key,
+      required this.isLoading,
+      required this.overlayColor,
+      this.loaderColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +23,9 @@ class Loader extends StatelessWidget {
     return Stack(
       children: [
         if (isLoading)
-          const Opacity(
-            opacity: 0.9,
-            child: ModalBarrier(
-                dismissible: false, color: Color.fromARGB(255, 239, 239, 239)),
+          Opacity(
+            opacity: 0.8,
+            child: ModalBarrier(dismissible: false, color: overlayColor),
           ),
         if (isLoading)
           Center(
@@ -31,14 +33,15 @@ class Loader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoadingAnimationWidget.threeArchedCircle(
-                color: const Color.fromARGB(255, 10, 10, 10),
+                color: loaderColor ?? Theme.of(context).primaryColor,
                 size: 58,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 14.5),
                 padding: const EdgeInsets.only(left: 4),
-                child: const Text("Loading...",
+                child: Text("Loading...",
                     style: TextStyle(
+                        color: loaderColor ?? Theme.of(context).primaryColor,
                         fontSize: 15.5,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.1)),

@@ -6,6 +6,7 @@ class CustomInputField extends StatelessWidget {
   final String placeholder;
   final TextEditingController controller;
   final Color color;
+  final Color textColor;
 
   const CustomInputField({
     super.key,
@@ -13,7 +14,8 @@ class CustomInputField extends StatelessWidget {
     this.label = '',
     this.placeholder = '',
     required this.controller,
-    this.color = const Color.fromARGB(255, 10, 10, 10),
+    this.color = const Color.fromARGB(255, 90, 90, 90),
+    this.textColor = const Color.fromARGB(255, 10, 10, 10),
   });
 
   @override
@@ -22,7 +24,7 @@ class CustomInputField extends StatelessWidget {
       data: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: color,
-          selectionColor: color.withOpacity(0.5),
+          selectionColor: textColor.withOpacity(0.3),
           selectionHandleColor: color,
         ),
       ),
@@ -37,9 +39,9 @@ class CustomInputField extends StatelessWidget {
             cursorWidth: 1.3,
             controller: controller,
             textCapitalization: TextCapitalization.sentences,
-            style: const TextStyle(
+            style: TextStyle(
                 fontFamily: 'RalewayMedium',
-                // color: color,
+                color: textColor,
                 fontSize: 18,
                 letterSpacing: 0.1),
             decoration: InputDecoration(

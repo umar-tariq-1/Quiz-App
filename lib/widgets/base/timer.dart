@@ -28,7 +28,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_secondsRemaining > 0) {
           _secondsRemaining--;
@@ -50,7 +50,8 @@ class _TimerWidgetState extends State<TimerWidget> {
   Widget build(BuildContext context) {
     return Text(
       'Time left: $_secondsRemaining seconds',
-      style: const TextStyle(
+      style: TextStyle(
+        color: Theme.of(context).primaryColor,
         fontFamily: "RalewayMedium",
         fontSize: 18,
       ),

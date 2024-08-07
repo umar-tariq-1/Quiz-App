@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Question extends StatelessWidget {
   final int questionNumber;
@@ -10,14 +9,13 @@ class Question extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding:
-            const EdgeInsets.only(/* top: 50, */ bottom: 25, left: 5, right: 5),
+        padding: const EdgeInsets.only(bottom: 25, left: 5, right: 5),
         child: Text(
-          '${(questionNumber == 0) ? '' : '$questionNumber. '}$questionText',
+          '${(questionNumber == 0) ? '' : '$questionNumber.  '}$questionText',
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
               fontFamily: 'RalewaySemiBold',
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: Theme.of(context).primaryColor,
               fontSize: 26,
               letterSpacing: 0),
         ));

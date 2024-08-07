@@ -21,27 +21,27 @@ class CustomListTile extends StatelessWidget {
       margin: const EdgeInsets.only(top: 6),
       decoration: active
           ? BoxDecoration(
-              color: const Color.fromARGB(255, 10, 10, 10),
+              color: Theme.of(context).primaryColor,
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(9999),
                 bottomRight: Radius.circular(9999),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.35),
-                  spreadRadius: 3,
-                  blurRadius: 3,
-                  offset: const Offset(3, 3),
-                ),
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Colors.black.withOpacity(0.25),
+              //     spreadRadius: 3,
+              //     blurRadius: 3,
+              //     offset: const Offset(3, 3),
+              //   ),
+              // ],
             )
           : null,
       child: ListTile(
         leading: Icon(
           iconData,
           color: active
-              ? const Color.fromARGB(255, 239, 239, 239)
-              : const Color.fromARGB(255, 10, 10, 10),
+              ? Theme.of(context).colorScheme.secondary
+              : Theme.of(context).primaryColor,
           size: iconSize,
         ),
         title: Padding(
@@ -53,8 +53,8 @@ class CustomListTile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
                 color: active
-                    ? const Color.fromARGB(255, 239, 239, 239)
-                    : const Color.fromARGB(255, 10, 10, 10),
+                    ? Theme.of(context).colorScheme.secondary
+                    : Theme.of(context).primaryColor,
               ),
             )),
         onTap: onTap,

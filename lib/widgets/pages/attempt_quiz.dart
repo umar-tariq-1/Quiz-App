@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:quiz_app/main.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:quiz_app/widgets/base/button.dart';
@@ -164,23 +165,34 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
         /* child: FGBGNotifier(
             onEvent: _handleAppLostFocus, */
         child: Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 68,
-              centerTitle: true,
-              title: const Text(
-                "Attempt Quiz",
-                style: TextStyle(
-                  fontFamily: 'BeautifulPeople',
-                  fontSize: 25,
-                  letterSpacing: 1.2,
-                  wordSpacing: 1.2,
-                ),
-              ),
-              backgroundColor: const Color.fromARGB(255, 10, 10, 10),
-              foregroundColor: const Color.fromARGB(255, 239, 239, 239),
-              leading: const Icon(null),
-            ),
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+            appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(68),
+                child: Container(
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3.5),
+                      ),
+                    ]),
+                    child: AppBar(
+                      toolbarHeight: 68,
+                      centerTitle: true,
+                      title: const Text(
+                        "Attempt Quiz",
+                        style: TextStyle(
+                          fontFamily: 'BeautifulPeople',
+                          fontSize: 25,
+                          letterSpacing: 1.2,
+                          wordSpacing: 1.2,
+                        ),
+                      ),
+                      leading: const Icon(null),
+                      backgroundColor: appBarColor,
+                      foregroundColor: appBarTextColor,
+                    ))),
+            backgroundColor: backgroundColor,
             body: Stack(
               children: [
                 Center(
@@ -240,9 +252,10 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                 fontSize: 18.6,
                                 height: 13,
                                 width: 220,
-                                leadingIcon: const Icon(
+                                leadingIcon: Icon(
                                     Icons.subdirectory_arrow_left_rounded,
-                                    color: Color.fromARGB(255, 239, 239, 239),
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     size: 27),
                                 active: true,
                               ),
@@ -252,7 +265,12 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                     ),
                   ),
                 ),
-                if (isLoading) Center(child: Loader(isLoading: isLoading)),
+                if (isLoading)
+                  Center(
+                      child: Loader(
+                    isLoading: isLoading,
+                    overlayColor: Colors.white,
+                  )),
               ],
             )) /* ) */);
   }
