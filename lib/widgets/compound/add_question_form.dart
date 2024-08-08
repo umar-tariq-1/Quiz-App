@@ -69,7 +69,7 @@ class AddQuestionForm extends StatelessWidget {
         },
         fontSize: 18.6,
         height: 13,
-        width: 220,
+        minWidth: 220,
         active: true,
         leadingIcon: Icon(
           Icons.add_task_rounded,

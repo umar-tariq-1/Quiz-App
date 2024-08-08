@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quiz_app/widgets/base/button.dart';
 import 'package:quiz_app/widgets/base/navigation_drawer.dart';
 import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
 import 'package:quiz_app/widgets/pages/edit_quiz.dart';
@@ -92,7 +91,7 @@ class MyAppState extends State<MyApp> {
                     "Quiz App",
                     style: TextStyle(
                       fontFamily: 'BeautifulPeople',
-                      fontSize: 25,
+                      fontSize: 25.25,
                       letterSpacing: 0.6,
                       wordSpacing: 0.6,
                     ),

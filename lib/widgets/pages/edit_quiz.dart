@@ -32,7 +32,7 @@ class _EditQuizState extends State<EditQuiz> {
                     "Edit Quiz",
                     style: TextStyle(
                       fontFamily: 'BeautifulPeople',
-                      fontSize: 25,
+                      fontSize: 25.25,
                       letterSpacing: 1.3,
                       wordSpacing: 1.2,
                     ),

@@ -36,7 +36,7 @@ class _NewQuizState extends State<NewQuiz> {
                     "New Quiz",
                     style: TextStyle(
                       fontFamily: 'BeautifulPeople',
-                      fontSize: 25,
+                      fontSize: 25.25,
                       letterSpacing: 1.3,
                       wordSpacing: 1.2,
                     ),
