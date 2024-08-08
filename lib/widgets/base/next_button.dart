@@ -4,7 +4,7 @@ class Nextbtn extends StatelessWidget {
   final bool disabled;
   final void Function() onClick;
 
-  const Nextbtn(this.onClick, {super.key, this.disabled = false});
+  const Nextbtn({super.key, required this.onClick, this.disabled = false});
 
   @override
   Widget build(BuildContext context) {

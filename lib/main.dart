@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quiz_app/widgets/base/button.dart';
 import 'package:quiz_app/widgets/base/navigation_drawer.dart';
 import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
 import 'package:quiz_app/widgets/pages/edit_quiz.dart';
@@ -104,7 +105,11 @@ class MyAppState extends State<MyApp> {
           changePage: _changePage,
         ),
         backgroundColor: backgroundColor,
-        body: Container(),
+        body: Container(
+            // child: Button(
+            //     buttonText: 'this is very loong text as you can see',
+            //     onClick: (_) {}),
+            ),
       ),
     );
   }

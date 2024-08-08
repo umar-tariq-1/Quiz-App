@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Loader extends StatelessWidget {
-  bool isLoading;
+  final bool isLoading;
   final Color overlayColor;
   final Color? loaderColor;
 
-  Loader(
+  const Loader(
       {super.key,
       required this.isLoading,
       required this.overlayColor,

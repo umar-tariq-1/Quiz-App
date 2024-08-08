@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/widgets/base/list_tile.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
-  String active;
+  final String active;
   final void Function(String) changePage;
-  CustomNavigationDrawer(
+  const CustomNavigationDrawer(
       {super.key, this.active = "", this.changePage = _defaultChangePage});
 
   static void _defaultChangePage(String page) {}

@@ -4,7 +4,8 @@ class Question extends StatelessWidget {
   final int questionNumber;
   final String questionText;
 
-  const Question(this.questionNumber, this.questionText, {super.key});
+  const Question(
+      {super.key, this.questionNumber = 0, required this.questionText});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class Question extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'RalewaySemiBold',
               color: Theme.of(context).primaryColor,
-              fontSize: 26,
+              fontSize: 24,
               letterSpacing: 0),
         ));
   }

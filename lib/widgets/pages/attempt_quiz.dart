@@ -75,16 +75,23 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
         setState(() {
           questions = {};
           for (var i = 0; i < data['results'].length; i++) {
-            String question = data['results'][i]['question'];
-            question = question.replaceAll('&#039;', "'");
-            question = question.replaceAll('&amp;', "&");
-            question = question.replaceAll('&quot;', '"');
+            String question = data['results'][i]['question'].toString();
+            question = question
+                .replaceAll('&#039;', "'")
+                .replaceAll('&amp;', "&")
+                .replaceAll('&quot;', '"');
+            // question = question.replaceAll('&amp;', "&");
+            // question = question.replaceAll('&quot;', '"');
             List<dynamic> options = data['results'][i]['incorrect_answers'];
             options.insert(0, data['results'][i]['correct_answer']);
             for (var j = 0; j < 4; j++) {
-              options[j] = options[j].toString().replaceAll('&#039;', "'");
-              options[j] = options[j].toString().replaceAll('&amp;', "&");
-              options[j] = options[j].toString().replaceAll('&quot;', '"');
+              options[j] = options[j]
+                  .toString()
+                  .replaceAll('&#039;', "'")
+                  .replaceAll('&amp;', "&")
+                  .replaceAll('&quot;', '"');
+              // options[j] = options[j].toString().replaceAll('&amp;', "&");
+              // options[j] = options[j].toString().replaceAll('&quot;', '"');
             }
             questions[question] = options;
           }
@@ -208,13 +215,15 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                 children: [
                                   if (questions.isNotEmpty)
                                     Question(
-                                      currentQuestionIndex + 1,
-                                      questions.keys.toList()[questionIndexes[
-                                          currentQuestionIndex]],
+                                      questionNumber: currentQuestionIndex + 1,
+                                      questionText: questions.keys.toList()[
+                                          questionIndexes[
+                                              currentQuestionIndex]],
                                     ),
                                   ...optionIndexes.map((index) {
                                     if (questions.isNotEmpty) {
                                       return Button(
+                                        key: ValueKey(index),
                                         buttonText: questions.values.toList()[
                                             questionIndexes[
                                                 currentQuestionIndex]][index],
@@ -227,7 +236,8 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                     }
                                   }),
                                   if (questions.isNotEmpty)
-                                    Nextbtn(_nextQuestion,
+                                    Nextbtn(
+                                        onClick: _nextQuestion,
                                         disabled: activeButton == -1),
                                   if (questions.isNotEmpty)
                                     TimerWidget(
@@ -245,7 +255,8 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Question(
-                                  0, "You scored $score/${questions.length}"),
+                                  questionText:
+                                      "You scored $score/${questions.length}"),
                               Button(
                                 buttonText: "Main Page",
                                 onClick: _goHome,

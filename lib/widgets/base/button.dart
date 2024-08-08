@@ -7,12 +7,12 @@ class Button extends StatelessWidget {
   final double fontSize;
   final double height;
   final double width;
-  bool disabled;
-  bool active;
+  final bool disabled;
+  final bool active;
   final Icon? leadingIcon;
   final void Function(dynamic) onClick;
 
-  Button({
+  const Button({
     super.key,
     required this.buttonText,
     required this.onClick,
