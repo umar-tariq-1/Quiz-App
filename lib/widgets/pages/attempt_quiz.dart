@@ -73,37 +73,24 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
         var data = jsonDecode(response.body);
 
         setState(() {
-          questions = {
-            "What is your name?": ["Umar", "Bilal", "Usman", "Abubakar"],
-            "What is your age?": ["21", "20", "19", "22"],
-            "What are you studying?": [
-              "Computer Science",
-              "Electrical Engineering",
-              "Data Science",
-              "Mechanical Engineering is good"
-            ]
-          };
-          // for (var i = 0; i < data['results'].length; i++) {
-          //   String question = data['results'][i]['question'].toString();
-          //   question = question
-          //       .replaceAll('&#039;', "'")
-          //       .replaceAll('&amp;', "&")
-          //       .replaceAll('&quot;', '"');
-          //   // question = question.replaceAll('&amp;', "&");
-          //   // question = question.replaceAll('&quot;', '"');
-          //   List<dynamic> options = data['results'][i]['incorrect_answers'];
-          //   options.insert(0, data['results'][i]['correct_answer']);
-          //   for (var j = 0; j < 4; j++) {
-          //     options[j] = options[j]
-          //         .toString()
-          //         .replaceAll('&#039;', "'")
-          //         .replaceAll('&amp;', "&")
-          //         .replaceAll('&quot;', '"');
-          //     // options[j] = options[j].toString().replaceAll('&amp;', "&");
-          //     // options[j] = options[j].toString().replaceAll('&quot;', '"');
-          //   }
-          //   questions[question] = options;
-          // }
+          questions = {};
+          for (var i = 0; i < data['results'].length; i++) {
+            String question = data['results'][i]['question'].toString();
+            question = question
+                .replaceAll('&#039;', "'")
+                .replaceAll('&amp;', "&")
+                .replaceAll('&quot;', '"');
+            List<dynamic> options = data['results'][i]['incorrect_answers'];
+            options.insert(0, data['results'][i]['correct_answer']);
+            for (var j = 0; j < 4; j++) {
+              options[j] = options[j]
+                  .toString()
+                  .replaceAll('&#039;', "'")
+                  .replaceAll('&amp;', "&")
+                  .replaceAll('&quot;', '"');
+            }
+            questions[question] = options;
+          }
           questionIndexes = _getRandomNumbers(0, questions.length - 1);
           optionIndexes = _getRandomNumbers(0, 3);
           isLoading = false;

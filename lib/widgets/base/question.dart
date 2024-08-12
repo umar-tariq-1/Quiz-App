@@ -17,7 +17,7 @@ class Question extends StatelessWidget {
           style: TextStyle(
               fontFamily: 'RalewaySemiBold',
               color: Theme.of(context).primaryColor,
-              fontSize: 24.5,
+              fontSize: 25.25,
               letterSpacing: 0),
         ));
   }

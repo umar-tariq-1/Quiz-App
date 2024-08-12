@@ -91,21 +91,21 @@ flutter:
   fonts:
     - family: BeautifulPeople
       fonts:
-        - asset: fonts/BeautifulPeople.ttf
+        - asset: assets/fonts/BeautifulPeople.ttf
     - family: RalewayLight
       fonts:
-        - asset: fonts/RalewayLight.ttf
+        - asset: assets/fonts/RalewayLight.ttf
     - family: Raleway
       fonts:
-        - asset: fonts/Raleway.ttf
+        - asset: assets/fonts/Raleway.ttf
     - family: RalewayRegular
       fonts:
-        - asset: fonts/RalewayRegular.ttf
+        - asset: assets/fonts/RalewayRegular.ttf
     - family: RalewayMedium
       fonts:
-        - asset: fonts/RalewayMedium.ttf
+        - asset: assets/fonts/RalewayMedium.ttf
     - family: RalewaySemiBold
       fonts:
-        - asset: fonts/RalewaySemiBold.ttf
+        - asset: assets/fonts/RalewaySemiBold.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
