@@ -57,7 +57,7 @@ class _EditQuizState extends State<EditQuiz> {
                   foregroundColor: appBarTextColor,
                 ))),
         backgroundColor: backgroundColor,
-        drawer: CustomNavigationDrawer(
+        drawer: const CustomNavigationDrawer(
           active: "Edit Quiz",
         ),
         body: AddQuestionForm(onSubmit: (_) {}));

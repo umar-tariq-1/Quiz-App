@@ -61,7 +61,7 @@ class _NewQuizState extends State<NewQuiz> {
                   foregroundColor: appBarTextColor,
                 ))),
         backgroundColor: backgroundColor,
-        drawer: CustomNavigationDrawer(
+        drawer: const CustomNavigationDrawer(
           active: "New Quiz",
         ),
         body: AddQuestionForm(onSubmit: _questionSubmitted));

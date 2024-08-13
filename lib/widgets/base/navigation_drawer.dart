@@ -98,6 +98,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
                   Navigator.of(context).pop();
                 }
                 Navigator.of(context).popAndPushNamed(NewQuiz.routePath);
+                changePage("New Quiz");
               }
             }),
         CustomListTile(
@@ -124,6 +125,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
                   Navigator.of(context).pop();
                 }
                 Navigator.of(context).popAndPushNamed(EditQuiz.routePath);
+                changePage("Edit Quiz");
               }
             }),
         const Divider(
@@ -137,9 +139,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             onTap: () {
               if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
                 Navigator.of(context).pop();
-                if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
-                  Navigator.of(context).pop();
-                }
+                Navigator.of(context).pop();
                 Navigator.of(context).popAndPushNamed(MyApp.routePath);
                 changePage("Home Page");
               }
