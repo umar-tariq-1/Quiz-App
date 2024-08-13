@@ -6,6 +6,8 @@ import 'package:quiz_app/widgets/compound/add_question_form.dart';
 class EditQuiz extends StatefulWidget {
   const EditQuiz({super.key});
 
+  static const routePath = '/edit-quiz';
+
   @override
   State<EditQuiz> createState() => _EditQuizState();
 }

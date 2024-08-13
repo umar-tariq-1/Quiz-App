@@ -16,6 +16,8 @@ class AttemptQuiz extends StatefulWidget {
   final BuildContext mainContext;
   final void Function(String) changePage;
 
+  static const routePath = '/attempt-quiz';
+
   const AttemptQuiz(
       {super.key, required this.mainContext, required this.changePage});
 

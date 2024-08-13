@@ -19,6 +19,8 @@ void main() {
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  static const routePath = '/';
+
   @override
   State<StatefulWidget> createState() {
     return MyAppState();
@@ -37,12 +39,12 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: MyApp.routePath,
       routes: {
-        '/new-quiz': (context) => const NewQuiz(),
-        '/attempt-quiz': (context) =>
+        NewQuiz.routePath: (context) => const NewQuiz(),
+        AttemptQuiz.routePath: (context) =>
             AttemptQuiz(mainContext: context, changePage: _changePage),
-        '/edit-quiz': (context) => const EditQuiz(),
+        EditQuiz.routePath: (context) => const EditQuiz(),
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

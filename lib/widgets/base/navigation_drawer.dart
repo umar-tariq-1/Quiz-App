@@ -1,7 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app/main.dart';
 import 'package:quiz_app/widgets/base/list_tile.dart';
+import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
+import 'package:quiz_app/widgets/pages/edit_quiz.dart';
+import 'package:quiz_app/widgets/pages/new_quiz.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
   final String active;
@@ -89,22 +93,38 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             text: "New Quiz",
             iconData: Icons.add_comment_outlined,
             onTap: () {
-              Navigator.of(context).popAndPushNamed('/new-quiz');
+              if (ModalRoute.of(context)?.settings.name != NewQuiz.routePath) {
+                if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
+                  Navigator.of(context).pop();
+                }
+                Navigator.of(context).popAndPushNamed(NewQuiz.routePath);
+              }
             }),
         CustomListTile(
             active: active == "Attempt Quiz",
             text: "Attempt Quiz",
             iconData: Icons.content_paste_go_sharp,
             onTap: () {
-              Navigator.of(context).popAndPushNamed("/attempt-quiz");
-              changePage("Attempt Quiz");
+              if (ModalRoute.of(context)?.settings.name !=
+                  AttemptQuiz.routePath) {
+                if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
+                  Navigator.of(context).pop();
+                }
+                Navigator.of(context).popAndPushNamed(AttemptQuiz.routePath);
+                changePage("Attempt Quiz");
+              }
             }),
         CustomListTile(
             active: active == "Edit Quiz",
             text: "Edit Quiz",
             iconData: Icons.edit_calendar_outlined,
             onTap: () {
-              Navigator.of(context).popAndPushNamed('/edit-quiz');
+              if (ModalRoute.of(context)?.settings.name != EditQuiz.routePath) {
+                if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
+                  Navigator.of(context).pop();
+                }
+                Navigator.of(context).popAndPushNamed(EditQuiz.routePath);
+              }
             }),
         const Divider(
           color: Color.fromARGB(255, 10, 10, 10),
@@ -115,8 +135,14 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             iconData: Icons.home_outlined,
             iconSize: 28,
             onTap: () {
-              Navigator.of(context).popAndPushNamed('/');
-              changePage("Home Page");
+              if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
+                Navigator.of(context).pop();
+                if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
+                  Navigator.of(context).pop();
+                }
+                Navigator.of(context).popAndPushNamed(MyApp.routePath);
+                changePage("Home Page");
+              }
             }),
       ],
     );
