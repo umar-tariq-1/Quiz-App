@@ -59,29 +59,29 @@ class CustomForm extends StatelessWidget {
           )
         ],
       ),
-      CustomElevatedButton(
-        buttonText: "Submit",
-        onClick: (_) {
-          Map data = {};
-          for (var i = 0; i < inputFieldsList.length; i++) {
-            data[inputFieldsList[i]['controllerId']!] =
-                controllers[inputFieldsList[i]['controllerId']!]!.text.trim();
-          }
-          onSubmit(data);
-          clearControllers([
-            for (var i = 0; i < inputFieldsList.length; i++)
-              inputFieldsList[i]['controllerId']!
-          ]);
-        },
-        fontSize: 18.6,
-        height: 13,
-        minWidth: 220,
-        active: true,
-        leadingIcon: const Icon(
-          Icons.add_task_rounded,
-          size: 25,
-        ),
-      ),
+      // CustomElevatedButton(
+      //   buttonText: "Submit",
+      //   onClick: (_) {
+      //     Map data = {};
+      //     for (var i = 0; i < inputFieldsList.length; i++) {
+      //       data[inputFieldsList[i]['controllerId']!] =
+      //           controllers[inputFieldsList[i]['controllerId']!]!.text.trim();
+      //     }
+      //     onSubmit(data);
+      //     clearControllers([
+      //       for (var i = 0; i < inputFieldsList.length; i++)
+      //         inputFieldsList[i]['controllerId']!
+      //     ]);
+      //   },
+      //   fontSize: 18.6,
+      //   height: 13,
+      //   minWidth: 220,
+      //   active: true,
+      //   leadingIcon: const Icon(
+      //     Icons.add_task_rounded,
+      //     size: 25,
+      //   ),
+      // ),
     ]);
   }
 }

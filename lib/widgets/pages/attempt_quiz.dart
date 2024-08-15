@@ -261,7 +261,7 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                               CustomElevatedButton(
                                 buttonText: "Main Page",
                                 onClick: _goHome,
-                                fontSize: 18.6,
+                                fontSize: 18.5,
                                 height: 13,
                                 minWidth: 220,
                                 leadingIcon: const Icon(

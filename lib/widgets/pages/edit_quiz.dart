@@ -13,6 +13,10 @@ class EditQuiz extends StatefulWidget {
 }
 
 class _EditQuizState extends State<EditQuiz> {
+  void _formSubmitted(data) {
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +65,7 @@ class _EditQuizState extends State<EditQuiz> {
           active: "Edit Quiz",
         ),
         body: CustomForm(
-          onSubmit: (data) {
-            print(data);
-          },
+          onSubmit: _formSubmitted,
           inputFieldsList: [
             {
               "label": "Question",
