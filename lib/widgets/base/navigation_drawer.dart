@@ -98,7 +98,6 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
                   Navigator.of(context).pop();
                 }
                 Navigator.of(context).popAndPushNamed(NewQuiz.routePath);
-                changePage("New Quiz");
               }
             }),
         CustomListTile(
@@ -125,7 +124,6 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
                   Navigator.of(context).pop();
                 }
                 Navigator.of(context).popAndPushNamed(EditQuiz.routePath);
-                changePage("Edit Quiz");
               }
             }),
         const Divider(

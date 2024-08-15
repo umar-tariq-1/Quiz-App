@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:quiz_app/main.dart';
 import 'dart:convert';
 import 'dart:math';
-import 'package:quiz_app/widgets/base/button.dart';
+import 'package:quiz_app/widgets/base/custom_elevated_button.dart';
 import 'package:quiz_app/widgets/base/question.dart';
 import 'package:quiz_app/widgets/base/next_button.dart';
 import 'package:quiz_app/widgets/base/timer.dart';
@@ -159,6 +159,9 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
   // }
 
   void _goHome(_) {
+    if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
+      Navigator.of(context).pop();
+    }
     Navigator.of(context).popAndPushNamed('/');
     widget.changePage("Home Page");
   }
@@ -220,7 +223,7 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                     ),
                                   ...optionIndexes.map((index) {
                                     if (questions.isNotEmpty) {
-                                      return Button(
+                                      return CustomElevatedButton(
                                         key: ValueKey(index),
                                         buttonText: questions.values.toList()[
                                             questionIndexes[
@@ -255,16 +258,14 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                               Question(
                                   questionText:
                                       "You scored $score/${questions.length}"),
-                              Button(
+                              CustomElevatedButton(
                                 buttonText: "Main Page",
                                 onClick: _goHome,
                                 fontSize: 18.6,
                                 height: 13,
                                 minWidth: 220,
-                                leadingIcon: Icon(
+                                leadingIcon: const Icon(
                                     Icons.subdirectory_arrow_left_rounded,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
                                     size: 27),
                                 active: true,
                               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/main.dart';
 import 'package:quiz_app/widgets/base/navigation_drawer.dart';
-import 'package:quiz_app/widgets/compound/add_question_form.dart';
+import 'package:quiz_app/widgets/compound/custom_form.dart';
 
 class NewQuiz extends StatefulWidget {
   const NewQuiz({super.key});
@@ -64,6 +64,9 @@ class _NewQuizState extends State<NewQuiz> {
         drawer: const CustomNavigationDrawer(
           active: "New Quiz",
         ),
-        body: AddQuestionForm(onSubmit: _questionSubmitted));
+        body: CustomForm(
+          onSubmit: _questionSubmitted,
+          inputFieldsList: const [],
+        ));
   }
 }

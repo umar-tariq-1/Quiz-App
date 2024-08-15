@@ -49,7 +49,6 @@ class MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Raleway',
-        focusColor: Colors.white,
         primaryColor: primaryColor,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: secondaryColor,
