@@ -107,11 +107,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             onTap: () {
               if (ModalRoute.of(context)?.settings.name !=
                   AttemptQuiz.routePath) {
-                if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
-                  Navigator.of(context).pop();
-                }
                 Navigator.of(context).popAndPushNamed(AttemptQuiz.routePath);
-                changePage("Attempt Quiz");
               }
             }),
         CustomListTile(
@@ -137,9 +133,7 @@ Widget buildMenuItems(BuildContext context, active, changePage) => Column(
             onTap: () {
               if (ModalRoute.of(context)?.settings.name != MyApp.routePath) {
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
                 Navigator.of(context).popAndPushNamed(MyApp.routePath);
-                changePage("Home Page");
               }
             }),
       ],

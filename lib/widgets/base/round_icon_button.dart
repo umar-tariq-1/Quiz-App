@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 
-class Nextbtn extends StatelessWidget {
+class RoundIconButton extends StatelessWidget {
   final bool disabled;
+  final EdgeInsets margin;
+  final Widget icon;
+  final double size;
   final void Function() onClick;
 
-  const Nextbtn({super.key, required this.onClick, this.disabled = false});
+  const RoundIconButton(
+      {super.key,
+      required this.onClick,
+      this.disabled = false,
+      this.margin = const EdgeInsets.all(0),
+      required this.icon,
+      this.size = 26});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 45, bottom: 40),
+      margin: margin,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [
@@ -25,12 +34,12 @@ class Nextbtn extends StatelessWidget {
             : Theme.of(context).primaryColor,
       ),
       child: IconButton(
-        icon: const Icon(Icons.arrow_forward),
+        icon: icon,
         onPressed: disabled ? null : onClick,
         color: disabled
             ? const Color.fromARGB(255, 148, 148, 148)
             : Theme.of(context).colorScheme.secondary,
-        iconSize: 26,
+        iconSize: size,
         padding: const EdgeInsets.all(13),
       ),
     );

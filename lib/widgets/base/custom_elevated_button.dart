@@ -10,6 +10,7 @@ class CustomElevatedButton extends StatelessWidget {
   final bool disabled;
   final bool active;
   final Icon? leadingIcon;
+  final EdgeInsets margin;
   final void Function(dynamic) onClick;
 
   const CustomElevatedButton(
@@ -18,10 +19,11 @@ class CustomElevatedButton extends StatelessWidget {
       required this.onClick,
       this.fontSize = 18.125,
       this.height = 12.75,
-      this.minWidth = 235,
-      this.maxWidthScreenFactor = 0.8,
+      this.minWidth = 140,
+      this.maxWidthScreenFactor = 0.95,
       this.active = false,
       this.disabled = false,
+      this.margin = const EdgeInsets.all(0),
       this.leadingIcon,
       this.borderRadius = 15});
 
@@ -29,6 +31,7 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
+      margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius + 2),
         border: Border.all(
@@ -36,7 +39,7 @@ class CustomElevatedButton extends StatelessWidget {
           width: 2,
         ),
       ),
-      padding: const EdgeInsets.all(1.75),
+      padding: const EdgeInsets.all(1.8),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           minWidth: minWidth,
@@ -46,7 +49,7 @@ class CustomElevatedButton extends StatelessWidget {
           style: TextButton.styleFrom(
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Theme.of(context).colorScheme.secondary,
-            padding: EdgeInsets.symmetric(horizontal: 18.885, vertical: height),
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: height),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),

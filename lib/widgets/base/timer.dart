@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class TimerWidget extends StatefulWidget {
   final int durationInSeconds;
   final Function onTimerComplete;
+  final EdgeInsets margin;
 
   const TimerWidget(
       {super.key,
       required this.durationInSeconds,
+      this.margin = const EdgeInsets.all(0),
       required this.onTimerComplete});
 
   @override
@@ -48,12 +50,15 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Time left: $_secondsRemaining seconds',
-      style: TextStyle(
-        color: Theme.of(context).primaryColor,
-        fontFamily: "RalewayMedium",
-        fontSize: 18,
+    return Container(
+      margin: widget.margin,
+      child: Text(
+        'Time left: $_secondsRemaining seconds',
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontFamily: "RalewayMedium",
+          fontSize: 18,
+        ),
       ),
     );
   }

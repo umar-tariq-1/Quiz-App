@@ -6,8 +6,9 @@ import 'package:quiz_app/main.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:quiz_app/widgets/base/custom_elevated_button.dart';
+import 'package:quiz_app/widgets/base/navigation_drawer.dart';
 import 'package:quiz_app/widgets/base/question.dart';
-import 'package:quiz_app/widgets/base/next_button.dart';
+import 'package:quiz_app/widgets/base/round_icon_button.dart';
 import 'package:quiz_app/widgets/base/timer.dart';
 import 'package:quiz_app/widgets/base/loader.dart';
 // import 'package:flutter_fgbg/flutter_fgbg.dart';
@@ -196,19 +197,37 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                           wordSpacing: 1.2,
                         ),
                       ),
-                      leading: const Icon(null),
+                      leading: currentState == 'Show Score'
+                          ? Builder(
+                              builder: (context) {
+                                return Container(
+                                    margin: const EdgeInsets.only(left: 5),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.menu),
+                                      color: appBarTextColor,
+                                      iconSize: 29,
+                                      onPressed: () {
+                                        Scaffold.of(context).openDrawer();
+                                      },
+                                    ));
+                              },
+                            )
+                          : const Icon(null),
                       backgroundColor: appBarColor,
                       foregroundColor: appBarTextColor,
                     ))),
             backgroundColor: backgroundColor,
+            drawer: const CustomNavigationDrawer(
+              active: "Attempt Quiz",
+            ),
             body: Stack(
               children: [
-                Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (currentState == "Show Questions")
+                if (currentState == "Show Questions")
+                  Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           Center(
                             child: SingleChildScrollView(
                               child: Column(
@@ -221,6 +240,9 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                           questionIndexes[
                                               currentQuestionIndex]],
                                     ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
                                   ...optionIndexes.map((index) {
                                     if (questions.isNotEmpty) {
                                       return CustomElevatedButton(
@@ -231,15 +253,21 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                                         onClick: (option) =>
                                             _optionSelected(option),
                                         active: index == activeButton,
+                                        minWidth: 235,
                                       );
                                     } else {
                                       return Container();
                                     }
                                   }),
                                   if (questions.isNotEmpty)
-                                    Nextbtn(
-                                        onClick: _nextQuestion,
-                                        disabled: activeButton == -1),
+                                    RoundIconButton(
+                                      icon: const Icon(
+                                          Icons.arrow_forward_rounded),
+                                      onClick: _nextQuestion,
+                                      disabled: activeButton == -1,
+                                      margin: const EdgeInsets.only(
+                                          top: 45, bottom: 40),
+                                    ),
                                   if (questions.isNotEmpty)
                                     TimerWidget(
                                       durationInSeconds: 1000,
@@ -251,30 +279,35 @@ class _QuizState extends State<AttemptQuiz> with WidgetsBindingObserver {
                               ),
                             ),
                           )
-                        else if (currentState == "Show Score")
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Question(
-                                  questionText:
-                                      "You scored $score/${questions.length}"),
-                              CustomElevatedButton(
-                                buttonText: "Main Page",
-                                onClick: _goHome,
-                                fontSize: 18.5,
-                                height: 13,
-                                minWidth: 220,
-                                leadingIcon: const Icon(
-                                    Icons.subdirectory_arrow_left_rounded,
-                                    size: 27),
-                                active: true,
-                              ),
-                            ],
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                if (currentState == "Show Score")
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Spacer(),
+                      Center(
+                        child: Question(
+                          questionText: "You scored $score/${questions.length}",
+                        ),
+                      ),
+                      const Spacer(),
+                      CustomElevatedButton(
+                        buttonText: "Main Page",
+                        onClick: _goHome,
+                        fontSize: 18.5,
+                        height: 13,
+                        minWidth: 220,
+                        leadingIcon: const Icon(
+                          Icons.subdirectory_arrow_left_rounded,
+                          size: 27,
+                        ),
+                        // active: true,
+                      ),
+                    ],
+                  ),
                 if (isLoading)
                   Center(
                       child: Loader(

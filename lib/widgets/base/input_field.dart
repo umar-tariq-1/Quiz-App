@@ -5,12 +5,14 @@ class CustomInputField extends StatelessWidget {
   final String label;
   final String placeholder;
   final TextEditingController controller;
+  final EdgeInsets margin;
   final Color color;
   final Color textColor;
 
   const CustomInputField({
     super.key,
     this.password = false,
+    this.margin = const EdgeInsets.symmetric(vertical: 4.5, horizontal: 10),
     this.label = '',
     this.placeholder = '',
     required this.controller,
@@ -29,7 +31,7 @@ class CustomInputField extends StatelessWidget {
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4.5, horizontal: 10),
+        margin: margin,
         child: SizedBox(
           width: double.infinity,
           height: 56.5,

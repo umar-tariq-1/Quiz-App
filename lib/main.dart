@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quiz_app/widgets/base/custom_elevated_button.dart';
 import 'package:quiz_app/widgets/base/navigation_drawer.dart';
 import 'package:quiz_app/widgets/pages/attempt_quiz.dart';
 import 'package:quiz_app/widgets/pages/edit_quiz.dart';
@@ -101,15 +102,13 @@ class MyAppState extends State<MyApp> {
                   foregroundColor: appBarTextColor,
                 ))),
         drawer: CustomNavigationDrawer(
-          active: currentPage,
+          active: 'Home Page',
           changePage: _changePage,
         ),
         backgroundColor: backgroundColor,
         body: Container(
-            // child: Button(
-            //     buttonText: 'this is very loong text as you can see',
-            //     onClick: (_) {}),
-            ),
+          child: CustomElevatedButton(buttonText: 'Submit', onClick: (_) {}),
+        ),
       ),
     );
   }
